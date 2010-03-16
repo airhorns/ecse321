@@ -1,0 +1,421 @@
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (18.4ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (20100316211227)
+  [4;36;1mSQL (0.5ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) NOT NULL, "crypted_password" varchar(255) NOT NULL, "password_salt" varchar(255) NOT NULL, "persistence_token" varchar(255) NOT NULL, "single_access_token" varchar(255) NOT NULL, "perishable_token" varchar(255) NOT NULL, "login_count" integer DEFAULT 0 NOT NULL, "failed_login_count" integer DEFAULT 0 NOT NULL, "last_request_at" datetime, "current_login_at" datetime, "last_login_at" datetime, "current_login_ip" varchar(255), "last_login_ip" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100316211227')[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("users")[0m
+
+
+Processing UserSessionsController#new (for 127.0.0.1 at 2010-03-16 17:24:32) [GET]
+  Parameters: {"controller"=>"user_sessions", "action"=>"new"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+Rendering user_sessions/new
+Completed in 97ms (View: 22, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) NOT NULL, "crypted_password" varchar(255) NOT NULL, "password_salt" varchar(255) NOT NULL, "persistence_token" varchar(255) NOT NULL, "single_access_token" varchar(255) NOT NULL, "perishable_token" varchar(255) NOT NULL, "login_count" integer DEFAULT 0 NOT NULL, "failed_login_count" integer DEFAULT 0 NOT NULL, "last_request_at" datetime, "current_login_at" datetime, "last_login_at" datetime, "current_login_ip" varchar(255), "last_login_ip" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (17.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100316211227')[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (14.9ms)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (1.2ms)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) NOT NULL, "crypted_password" varchar(255) NOT NULL, "password_salt" varchar(255) NOT NULL, "persistence_token" varchar(255) NOT NULL, "single_access_token" varchar(255) NOT NULL, "perishable_token" varchar(255) NOT NULL, "login_count" integer DEFAULT 0 NOT NULL, "failed_login_count" integer DEFAULT 0 NOT NULL, "last_request_at" datetime, "current_login_at" datetime, "last_login_at" datetime, "current_login_ip" varchar(255), "last_login_ip" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE (LOWER("users"."email") = 'admin@example.com') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."persistence_token" = '22b850ea0d2c161726bf3c1523c8a222407e4a86a8fc370ba370e5fe2ddc1783367fb7df83ac27011d2373da25c252a1f792058a31274641ac9147cd420ee19e') LIMIT 1[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."single_access_token" = '_A37Mvebldq_51Roed7G') LIMIT 1[0m
+  [4;35;1mUser Create (0.3ms)[0m   [0mINSERT INTO "users" ("email", "crypted_password", "password_salt", "persistence_token", "single_access_token", "perishable_token", "login_count", "failed_login_count", "last_request_at", "current_login_at", "last_login_at", "current_login_ip", "last_login_ip", "created_at", "updated_at") VALUES('admin@example.com', '9b82bb5a2a700f137af66ec31a3ec7d273abb7fb3d65449814a6141c79b53ed817325e3a1545fc8686ee7f2c4adcfbd74b751e63ea19f15abe46c603ecb9e84e', 'rMVK7YCOFa2LZVNcIYov', '22b850ea0d2c161726bf3c1523c8a222407e4a86a8fc370ba370e5fe2ddc1783367fb7df83ac27011d2373da25c252a1f792058a31274641ac9147cd420ee19e', '_A37Mvebldq_51Roed7G', 'wXh50tUiGTwfT8TBeHl5', 0, 0, NULL, NULL, NULL, NULL, NULL, '2010-03-16 21:30:55', '2010-03-16 21:30:55')[0m
+
+
+Processing UserSessionsController#new (for 127.0.0.1 at 2010-03-16 17:31:28) [GET]
+  Parameters: {"controller"=>"user_sessions", "action"=>"new"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+Rendering user_sessions/new
+Completed in 73ms (View: 23, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing UserSessionsController#create (for 127.0.0.1 at 2010-03-16 17:31:35) [POST]
+  Parameters: {"authenticity_token"=>"vAUUOqvHBvz7VwY6ifIAKfEvQJW+heOexgCdhG3VZPY=", "user_session"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login", "controller"=>"user_sessions", "action"=>"create"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE (LOWER("users".email) = 'admin@example.com') LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "failed_login_count" = 1, "perishable_token" = 'cwwWrJaOM-Q0BNaC6Mrg', "updated_at" = '2010-03-16 21:31:35' WHERE "id" = 1[0m
+Rendering user_sessions/new
+Completed in 21ms (View: 2, DB: 1) | 200 OK [http://localhost/user_session]
+
+
+Processing UserSessionsController#create (for 127.0.0.1 at 2010-03-16 17:31:40) [POST]
+  Parameters: {"authenticity_token"=>"vAUUOqvHBvz7VwY6ifIAKfEvQJW+heOexgCdhG3VZPY=", "user_session"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Login", "controller"=>"user_sessions", "action"=>"create"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE (LOWER("users".email) = 'admin@example.com') LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "login_count" = 1, "failed_login_count" = 0, "current_login_at" = '2010-03-16 21:31:40', "current_login_ip" = '127.0.0.1', "last_request_at" = '2010-03-16 21:31:40', "perishable_token" = 'TB4h4HXrcizAfCSLJaUD', "updated_at" = '2010-03-16 21:31:40' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/account
+Completed in 284ms (DB: 1) | 302 Found [http://localhost/user_session]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:31:40) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.6ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:31:40', "perishable_token" = '1RXkO2RJVGI-g3iqfJ8-', "updated_at" = '2010-03-16 21:31:40' WHERE "id" = 1[0m
+Rendering users/show
+
+ActionView::TemplateError (undefined method `login' for #<User:0x00000101519fb8>) on line #3 of app/views/users/show.html.erb:
+1: <p>
+2:   <b>Login:</b>
+3:   <%=h @user.login %>
+4: </p>
+5: 
+6: <p>
+
+    app/views/users/show.html.erb:3
+    <internal:prelude>:8:in `synchronize'
+    /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (92.6ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:32:04) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:32:04', "perishable_token" = 'RsWyM1rvO3WUBOHdnQ_C', "updated_at" = '2010-03-16 21:32:04' WHERE "id" = 1[0m
+Rendering users/show
+Completed in 23ms (View: 6, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:33:50) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:33:50', "perishable_token" = 'c84LeodRRga85Aqt835H', "updated_at" = '2010-03-16 21:33:50' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/show
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:23:50') [0m
+Completed in 29ms (View: 12, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:33:50) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:33:53) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "last_request_at" = '2010-03-16 21:33:53', "perishable_token" = '4Mo3dd9EjXdRNQqRuhIV', "updated_at" = '2010-03-16 21:33:53' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:23:53') [0m
+Completed in 48ms (View: 2, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:33:53) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:34:14) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:14', "perishable_token" = 'Aojm91fnQFktnaozRKwB', "updated_at" = '2010-03-16 21:34:14' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/show
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:24:14') [0m
+Completed in 25ms (View: 8, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:34:14) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:34:17) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:17', "perishable_token" = '8p02xxRGDNnBiTfyaFKm', "updated_at" = '2010-03-16 21:34:17' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/show
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:24:17') [0m
+Completed in 107ms (View: 3, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:34:17) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:34:19) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:19', "perishable_token" = 'CNmreWg-oRiVDa7Quaet', "updated_at" = '2010-03-16 21:34:19' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/show
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:24:19') [0m
+Completed in 20ms (View: 2, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:34:19) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#edit (for 127.0.0.1 at 2010-03-16 17:34:23) [GET]
+  Parameters: {"controller"=>"users", "action"=>"edit"}
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:23', "perishable_token" = 'jCHpi4JgY36qWkZtp78Y', "updated_at" = '2010-03-16 21:34:23' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/edit
+
+ActionView::TemplateError (undefined method `login' for #<User:0x00000102415ff0>) on line #2 of app/views/users/_form.erb:
+1: <%= form.label :login %><br />
+2: <%= form.text_field :login %><br />
+3: <br />
+4: <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
+5: <%= form.password_field :password %><br />
+
+    app/views/users/_form.erb:2
+    app/views/users/edit.html.erb:5:in `block in _run_erb_app47views47users47edit46html46erb'
+    app/views/users/edit.html.erb:3
+    <internal:prelude>:8:in `synchronize'
+    /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (117.9ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#edit (for 127.0.0.1 at 2010-03-16 17:34:37) [GET]
+  Parameters: {"controller"=>"users", "action"=>"edit"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:37', "perishable_token" = 'fnoEIy4iE0MnR5F5mH4Y', "updated_at" = '2010-03-16 21:34:37' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (1.3ms)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:24:37') [0m
+Completed in 29ms (View: 11, DB: 1) | 200 OK [http://localhost/account/edit]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:34:37) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#update (for 127.0.0.1 at 2010-03-16 17:34:44) [PUT]
+  Parameters: {"_method"=>"put", "authenticity_token"=>"vAUUOqvHBvz7VwY6ifIAKfEvQJW+heOexgCdhG3VZPY=", "user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Update", "controller"=>"users", "action"=>"update"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.3ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:44', "perishable_token" = 'bV3thFD4aKFbDVsDtA4C', "updated_at" = '2010-03-16 21:34:44' WHERE "id" = 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."persistence_token" = '55684f4a3d41569c9922c5fd77f9ccfd8dae21a39be9adca044da821aa4f3a459e4559b40417bc5599439701e26653ae0466e9ff55333cc9ad28a9a86394cf9c' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Update (0.2ms)[0m   [0mUPDATE "users" SET "password_salt" = 'c14xO1_ZbEmRKxiync4A', "crypted_password" = 'a41ba551ed968db31aa7918705f8ff3695369ede94a6a46485e245caf7700cf28ad62e4d9693f580e0fccbf1959c85faa8cf497d813f98042a02d9c0b17351bc', "persistence_token" = '55684f4a3d41569c9922c5fd77f9ccfd8dae21a39be9adca044da821aa4f3a459e4559b40417bc5599439701e26653ae0466e9ff55333cc9ad28a9a86394cf9c', "perishable_token" = 'iKdpBhar0XWKnchLjsFx', "last_request_at" = '2010-03-16 21:34:44', "login_count" = 2, "last_login_at" = '2010-03-16 21:31:40', "current_login_at" = '2010-03-16 21:34:44', "last_login_ip" = '127.0.0.1', "updated_at" = '2010-03-16 21:34:44' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/account
+Completed in 46ms (DB: 1) | 302 Found [http://localhost/account]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-16 17:34:44) [GET]
+  Parameters: {"controller"=>"users", "action"=>"show"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;35;1mUser Update (0.3ms)[0m   [0mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:44', "perishable_token" = 'XsRSk-e2J83TeU4JBKcx', "updated_at" = '2010-03-16 21:34:44' WHERE "id" = 1[0m
+Rendering template within layouts/application
+Rendering users/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:24:44') [0m
+Completed in 19ms (View: 3, DB: 1) | 200 OK [http://localhost/account]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:34:44) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UserSessionsController#destroy (for 127.0.0.1 at 2010-03-16 17:34:53) [DELETE]
+  Parameters: {"_method"=>"delete", "authenticity_token"=>"vAUUOqvHBvz7VwY6ifIAKfEvQJW+heOexgCdhG3VZPY=", "controller"=>"user_sessions", "action"=>"destroy"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = '1') LIMIT 1[0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "last_request_at" = '2010-03-16 21:34:53', "perishable_token" = 'UBjAVINAGFM-tH2C11Zc', "updated_at" = '2010-03-16 21:34:53' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/user_session/new
+Completed in 39ms (DB: 1) | 302 Found [http://localhost/user_session]
+
+
+Processing UserSessionsController#new (for 127.0.0.1 at 2010-03-16 17:34:53) [GET]
+  Parameters: {"controller"=>"user_sessions", "action"=>"new"}
+Rendering template within layouts/application
+Rendering user_sessions/new
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:24:53') [0m
+Completed in 18ms (View: 3, DB: 0) | 200 OK [http://localhost/user_session/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:34:53) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2010-03-16 17:35:01) [GET]
+  Parameters: {"controller"=>"users", "action"=>"new"}
+Rendering template within layouts/application
+Rendering users/new
+Rendered users/_form (0.6ms)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:25:01') [0m
+Completed in 21ms (View: 12, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:35:01) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2010-03-16 17:35:54) [GET]
+  Parameters: {"controller"=>"users", "action"=>"new"}
+Redirected to http://localhost:3000/user_session/new
+Filter chain halted as [:require_user] rendered_or_redirected.
+Completed in 9ms (DB: 0) | 302 Found [http://localhost/users/new]
+
+
+Processing UserSessionsController#new (for 127.0.0.1 at 2010-03-16 17:35:54) [GET]
+  Parameters: {"controller"=>"user_sessions", "action"=>"new"}
+Rendering template within layouts/application
+Rendering user_sessions/new
+  [4;35;1mSQL (0.4ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:25:54') [0m
+Completed in 20ms (View: 12, DB: 0) | 200 OK [http://localhost/user_session/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:35:54) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UserSessionsController#new (for 127.0.0.1 at 2010-03-16 17:35:56) [GET]
+  Parameters: {"controller"=>"user_sessions", "action"=>"new"}
+Rendering template within layouts/application
+Rendering user_sessions/new
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:25:56') [0m
+Completed in 13ms (View: 3, DB: 0) | 200 OK [http://localhost/user_session/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:35:56) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing UserSessionsController#new (for 127.0.0.1 at 2010-03-16 17:35:59) [GET]
+  Parameters: {"controller"=>"user_sessions", "action"=>"new"}
+Rendering template within layouts/application
+Rendering user_sessions/new
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "users" WHERE (last_request_at > '2010-03-16 21:25:59') [0m
+Completed in 12ms (View: 3, DB: 0) | 200 OK [http://localhost/user_session/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-16 17:35:59) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/hornairs/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)

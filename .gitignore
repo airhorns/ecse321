@@ -3,3 +3,4 @@ tmp/**/*
 doc/api
 doc/app
 .DS_Store
+db/development.sqlite3
