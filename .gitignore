@@ -1,6 +1,6 @@
 log/*.log
 tmp/**/*
-doc/api
-doc/app
+doc
 .DS_Store
 db/development.sqlite3
+.yardoc
