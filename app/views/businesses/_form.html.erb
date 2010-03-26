@@ -1,0 +1,38 @@
+<% form_for(@business) do |f| %>
+  <%= f.error_messages %>
+	<div class="span-9">
+  		<div class="field">
+		  <%= f.label :name %><br />
+		  <%= f.text_field :name, :class=> "span-9" %>
+		</div>
+		<div class="field">
+		  <%= f.label :website %><br />
+		  <%= f.text_field :website, :class=> "span-9" %>
+		</div>
+		<div class="field">
+		  <%= f.label :telephone %><br />
+		  <%= f.text_field :telephone, :class=> "span-9" %>
+		</div>
+		<div class="field">
+		  <%= f.label :fax %><br />
+		  <%= f.text_field :fax, :class=> "span-9" %>
+		</div>
+		<div class="field">
+		  <%= f.label :email %><br />
+		  <%= f.text_field :email, :class=> "span-9" %>
+		</div>
+		<div class="field">
+		  <%= f.label :notes %><br />
+		  <%= f.text_area :notes, :class=> "span-9" %>
+		</div>
+		
+		<div class="actions">
+		  <%= f.submit %>
+		</div>
+	</div>
+	
+	<div class="prepend-1 span-10 last">
+		<%= render :partial => 'addresses/form', :locals => {:f => f} %>
+	</div>
+<% end %>
+<div class="clear"></div>

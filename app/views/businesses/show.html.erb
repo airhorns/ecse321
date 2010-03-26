@@ -1,0 +1,33 @@
+<p>
+  <b>Name:</b>
+  <%=h @business.name %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%=h @business.website %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%=h @business.telephone %>
+</p>
+
+<p>
+  <b>Fax:</b>
+  <%=h @business.fax %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @business.email %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @business.notes %>
+</p>
+
+
+<%= link_to 'Edit this business', edit_business_path(@business) %> |
+<%= link_to 'Back to business list', businesses_path %>
