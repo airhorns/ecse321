@@ -1,14 +1,13 @@
-# @author::    Harry Brundage
-
 # Extended by all other controllers. Manages request forger protection, and provides methods to define authenitication requirements, 
 # and to access the current user model. Filters added to this controller apply to all controllers in the application.  Likewise, all 
 # the methods added will be available for all controllers. The application controller never serves any requests itself. 
+# @author Harry Brundage
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   filter_parameter_logging :password # Scrub sensitive parameters from your log
-    
+  
   helper_method :current_user_session, :current_user
 
   private

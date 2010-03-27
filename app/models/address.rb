@@ -1,6 +1,12 @@
+# An +Address+ represents the address part of something's contact information. In the PMS, both +Contact+s and +Business+s have addresses,
+# so they are abstracted out and in a different table. +Address+ uses +Carmen+ to validate the country and state/province fields and to
+# generate select drop downs in the view.
+# @author Harry Brundage
 class Address < ActiveRecord::Base
+  # Can be an address for any addressable object, in the PMS these are +Business+es and +Contact+s
   belongs_to :addressable, :polymorphic => true
   
+  # Ensure all addresses have a street, city, zip/postal code, and a country
   validates_presence_of :street1, :city, :zipcode, :country
   
   # Ensure the specified state/province belongs to the specified country. Called only if the specified country actually has states. 

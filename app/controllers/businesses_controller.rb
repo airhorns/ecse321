@@ -1,45 +1,46 @@
+# BusinessesController manages the {Business} objects by providing a RESTful HTML interface. 
+# @author Harry Brundage
 class BusinessesController < ApplicationController
-  # GET /businesses
-  # GET /businesses.xml
+  
+  # Renders the index action, listing all the +Business+es. 
+  # Route: GET /businesses
   def index
     @businesses = Business.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @businesses }
     end
   end
 
-  # GET /businesses/1
-  # GET /businesses/1.xml
+  # Shows a particular +Business+
+  # Route: GET /businesses/1
   def show
     @business = Business.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @business }
     end
   end
 
-  # GET /businesses/new
-  # GET /businesses/new.xml
+  # Renders the form to create a new +Business+.
+  # Route: GET /businesses/new
   def new
     @business = Business.new
     @business.address ||= Address.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @business }
     end
   end
-
-  # GET /businesses/1/edit
+  
+  # Renders the formm to edit an exisitng +Business+
+  # Route: GET /businesses/1/edit
   def edit
     @business = Business.find(params[:id])
   end
 
-  # POST /businesses
-  # POST /businesses.xml
+  # Accepts POST data from the {BusinessesController#new} form to validate and create a new +Business+ record
+  # Route: POST /businesses
   def create
     @business = Business.new(params[:business])
 
@@ -47,16 +48,15 @@ class BusinessesController < ApplicationController
       if @business.save
         flash[:notice] = 'Business was successfully created.'
         format.html { redirect_to(@business) }
-        format.xml  { render :xml => @business, :status => :created, :location => @business }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @business.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /businesses/1
-  # PUT /businesses/1.xml
+  # Accepts POST data from the {BusinessesController#edit} form to validate and update the attributes 
+  # of an existing +Business+ record
+  # Route: PUT /businesses/1
   def update
     @business = Business.find(params[:id])
 
@@ -64,23 +64,20 @@ class BusinessesController < ApplicationController
       if @business.update_attributes(params[:business])
         flash[:notice] = 'Business was successfully updated.'
         format.html { redirect_to(@business) }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @business.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /businesses/1
-  # DELETE /businesses/1.xml
+  # Deletes an existing +Business+ object from the database
+  # Route: DELETE /businesses/1
   def destroy
     @business = Business.find(params[:id])
     @business.destroy
 
     respond_to do |format|
       format.html { redirect_to(businesses_url) }
-      format.xml  { head :ok }
     end
   end
 end
