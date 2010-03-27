@@ -1,0 +1,33 @@
+<p>
+  <b>Name:</b>
+  <%=h @project_cost.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @project_cost.description %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @project_cost.user_id %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%=h @project_cost.task_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @project_cost.date %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @project_cost.state %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_cost_path(@project_cost) %> |
+<%= link_to 'Back', project_costs_path %>
