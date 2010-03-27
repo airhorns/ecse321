@@ -3,10 +3,10 @@ class CreateProjectCosts < ActiveRecord::Migration
     create_table :project_costs do |t|
       t.string :name
       t.text :description
-      t.int :user_id
-      t.int :task_id
+      t.integer :user_id
+      t.integer :task_id
       t.datetime :date
-      t.int :state
+      t.integer :state
 			t.string :type
 
       t.timestamps
