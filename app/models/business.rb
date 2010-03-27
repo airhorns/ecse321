@@ -2,7 +2,7 @@
 # +Contact+s and categorize their origin. 
 # @author Harry Brundage
 class Business < ActiveRecord::Base
-  # has_many :contacts
+  has_many :contacts
   
   # Receiving end of the polymorphic address association
   has_one :address, :dependent => :destroy, :as => :addressable

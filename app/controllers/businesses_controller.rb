@@ -58,8 +58,11 @@ class BusinessesController < ApplicationController
   # of an existing +Business+ record
   # Route: PUT /businesses/1
   def update
+    
     @business = Business.find(params[:id])
-
+    puts @business
+    puts params
+    
     respond_to do |format|
       if @business.update_attributes(params[:business])
         flash[:notice] = 'Business was successfully updated.'

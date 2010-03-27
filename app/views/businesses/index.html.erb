@@ -14,7 +14,7 @@
     <td><%=h business.name %></td>
     <td><%= link_to business.website, business.website %></td>
     <td><%=h business.telephone %></td>
-    <td><%=h business.contacts.pretty_s %></td>
+    <td><%=h business.contacts.length %></td>
     <td><%= link_to 'Show', business %> | 
     <%= link_to 'Edit', edit_business_path(business) %> | 
     <%= link_to 'Destroy', business, :confirm => 'Are you sure?', :method => :delete %></td>
