@@ -1,6 +1,36 @@
 <p>
+  <b>Name:</b>
+  <%=h @hour_report.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @hour_report.description %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @hour_report.user_id %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%=h @hour_report.task_id %>
+</p>
+
+<p>
   <b>Hours:</b>
   <%=h @hour_report.hours %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @hour_report.date %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @hour_report.get_state %>
 </p>
 
 

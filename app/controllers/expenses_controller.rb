@@ -41,6 +41,7 @@ class ExpensesController < ApplicationController
   # POST /expenses.xml
   def create
     @expense = Expense.new(params[:expense])
+		@expense.state = 0		# initial state 'Pending'
 
     respond_to do |format|
       if @expense.save
@@ -58,6 +59,7 @@ class ExpensesController < ApplicationController
   # PUT /expenses/1.xml
   def update
     @expense = Expense.find(params[:id])
+		@expense.state = 0		# reset state to 'Pending' once the expense is edited
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])

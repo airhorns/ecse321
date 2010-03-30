@@ -1,6 +1,36 @@
 <p>
+  <b>Name:</b>
+  <%=h @expense.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @expense.description %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @expense.user_id %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%=h @expense.task_id %>
+</p>
+
+<p>
   <b>Cost:</b>
   <%=h @expense.cost %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @expense.date %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @expense.get_state %>
 </p>
 
 

@@ -1,0 +1,15 @@
+<% form_for(@hour_report) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'project_costs/form', :locals => {:f => f} %>
+
+  <p>
+    <%= f.label :hours %><br />
+    <%= f.text_field :hours %>
+  </p>
+
+  <p>
+  	<% if @hour_report.hours then label = 'Update' else label = 'Create' end%>
+    <%= f.submit label %>
+  </p>
+<% end %>
