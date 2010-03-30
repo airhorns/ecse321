@@ -2,12 +2,22 @@
 
 <table>
   <tr>
+    <th>Name</th>
+    <th>User</th>
+    <th>Task</th>
     <th>Hours</th>
+    <th>Date</th>
+    <th>State</th>
   </tr>
 
 <% @hour_reports.each do |hour_report| %>
   <tr>
+    <td><%=h hour_report.name %></td>
+    <td><%=h hour_report.user_id %></td>
+    <td><%=h hour_report.task_id %></td>
     <td><%=h hour_report.hours %></td>
+    <td><%=h hour_report.date %></td>
+    <td><%=h hour_report.get_state %></td>
     <td><%= link_to 'Show', hour_report %></td>
     <td><%= link_to 'Edit', edit_hour_report_path(hour_report) %></td>
     <td><%= link_to 'Destroy', hour_report, :confirm => 'Are you sure?', :method => :delete %></td>

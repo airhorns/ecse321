@@ -1,15 +1,5 @@
 <h1>New hour_report</h1>
 
-<% form_for(@hour_report) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :hours %><br />
-    <%= f.text_field :hours %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<%= render :partial => 'form' %>
 
 <%= link_to 'Back', hour_reports_path %>

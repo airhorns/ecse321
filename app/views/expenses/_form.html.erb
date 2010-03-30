@@ -1,0 +1,15 @@
+<% form_for(@expense) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'project_costs/form', :locals => {:f => f} %>
+
+  <p>
+    <%= f.label :cost %><br />
+    <%= f.text_field :cost %>
+  </p>
+
+  <p>
+  <% if @expense.cost then label = 'Update' else label = 'Create' end%>
+    <%= f.submit label %>
+  </p>
+<% end %>
