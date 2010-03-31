@@ -2,8 +2,8 @@
 
 <table>
   <tr>
+    <th>Type</th>
     <th>Name</th>
-    <th>Description</th>
     <th>User</th>
     <th>Task</th>
     <th>Date</th>
@@ -12,12 +12,12 @@
 
 <% @project_costs.each do |project_cost| %>
   <tr>
+    <td><%=h project_cost.type %></td>
     <td><%=h project_cost.name %></td>
-    <td><%=h project_cost.description %></td>
     <td><%=h project_cost.user_id %></td>
     <td><%=h project_cost.task_id %></td>
     <td><%=h project_cost.date %></td>
-    <td><%=h project_cost.state %></td>
+    <td><%=h project_cost.get_state %></td>
     <td><%= link_to 'Show', project_cost %></td>
     <td><%= link_to 'Edit', edit_project_cost_path(project_cost) %></td>
     <td><%= link_to 'Destroy', project_cost, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -26,5 +26,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New project_cost', new_project_cost_path %>

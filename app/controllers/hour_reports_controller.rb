@@ -41,7 +41,7 @@ class HourReportsController < ApplicationController
   # POST /hour_reports.xml
   def create
     @hour_report = HourReport.new(params[:hour_report])
-		@hour_report.state = 0		# initial state is 'Pending'
+                @hour_report.state = 0          # initial state is 'Pending'
 
     respond_to do |format|
       if @hour_report.save
@@ -59,7 +59,7 @@ class HourReportsController < ApplicationController
   # PUT /hour_reports/1.xml
   def update
     @hour_report = HourReport.find(params[:id])
-		@hour_report.state = 0		# reset state to 'Pending' after editing
+                @hour_report.state = 0          # reset state to 'Pending' after editing
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -85,9 +85,9 @@ class HourReportsController < ApplicationController
     end
   end
 
-	def approve
+  def approve
     @hour_report = HourReport.find(params[:id])
-		@hour_report.state = 1
+    @hour_report.state = 1
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -99,5 +99,21 @@ class HourReportsController < ApplicationController
         format.xml  { render :xml => @hour_report.errors, :status => :unprocessable_entity }
       end
     end
-	end
+        end
+
+  def reject
+    @hour_report = HourReport.find(params[:id])
+    @hour_report.state = 2
+
+    respond_to do |format|
+      if @hour_report.update_attributes(params[:hour_report])
+        flash[:notice] = 'HourReport was successfully rejected.'
+        format.html { redirect_to(@hour_report) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @hour_report.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 end

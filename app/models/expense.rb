@@ -1,7 +1,7 @@
 class Expense < ProjectCost
-	validates_presence_of :cost
+  validates_presence_of :cost
 
-	def get_cost
-		@cost
-	end
+  def get_cost
+    @cost
+  end
 end

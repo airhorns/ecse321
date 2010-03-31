@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20100327195934) do
     t.text     "description"
     t.integer  "user_id"
     t.integer  "task_id"
-    t.datetime "date"
+    t.date     "date"
     t.integer  "hours"
     t.float    "cost"
     t.integer  "state"

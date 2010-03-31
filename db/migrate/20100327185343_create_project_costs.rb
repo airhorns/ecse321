@@ -7,9 +7,9 @@ class CreateProjectCosts < ActiveRecord::Migration
       t.integer :task_id
       t.date :date
       t.integer :hours
-			t.float :cost
+      t.float :cost
       t.integer :state
-			t.string :type
+      t.string :type
 
       t.timestamps
     end
