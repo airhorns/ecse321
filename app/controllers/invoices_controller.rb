@@ -17,9 +17,13 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.xml
   def index
-    #@invoices = Invoice.find(:all, :conditions => {:project => "Superman"})
+    #@invoices = Invoice.find(:all, :conditions => {:project => "Superman", :client => "Robot"})
 	@invoices = Invoice.find(:all)
-	@all_expenses = Expense.find(:all)
+	#@all_expenses = Expense.find(:all)
+	
+	start_date = 2008-03-31
+	end_date = 2018-03-31
+	@all_expenses = Expense.find(:all, :conditions => {:date > '2009-03-31'})
 
     respond_to do |format|
       format.html # index.html.erb
