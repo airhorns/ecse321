@@ -59,7 +59,7 @@ class ExpensesController < ApplicationController
   # PUT /expenses/1.xml
   def update
     @expense = Expense.find(params[:id])
-		@expense.state = 0		# reset state to 'Pending' once the expense is edited
+		@expense.state = 0   # reset state to 'Pending' once the expense is edited
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
@@ -84,4 +84,37 @@ class ExpensesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+  def approve
+    @expense = Expense.find(params[:id])
+    @expense.state = 1
+
+    respond_to do |format|
+      if @expense.update_attributes(params[:expense])
+        flash[:notice] = 'Expense was successfully approved.'
+        format.html { redirect_to(@expense) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @expense.errors, :status => :unprocessable_entity }
+      end
+    end
+	end
+
+  def reject
+    @expense = Expense.find(params[:id])
+    @expense.state = 2
+
+    respond_to do |format|
+      if @expense.update_attributes(params[:expense])
+        flash[:notice] = 'Expense was successfully rejected.'
+        format.html { redirect_to(@expense) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @expense.errors, :status => :unprocessable_entity }
+      end
+    end
+	end
 end
