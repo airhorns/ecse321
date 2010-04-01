@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  project: MyString
+  client: MyString
+  start_date: 2010-03-31
+  end_date: 2010-03-31
+
+two:
+  id: 1
+  project: MyString
+  client: MyString
+  start_date: 2010-03-31
+  end_date: 2010-03-31

@@ -1,0 +1,29 @@
+<p>
+  <b>Id:</b>
+  <%=h @invoice.id %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%=h @invoice.project %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%=h @invoice.client %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%=h @invoice.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%=h @invoice.end_date %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<%= link_to 'Back', invoices_path %>
