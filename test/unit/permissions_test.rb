@@ -5,15 +5,17 @@ class PermissionsTest < ActiveSupport::TestCase
   context "Some users with various permissions" do
     setup do
       @user = Factory.create(:user)
-      @manager = Factory.create(:manager)
-      @manager2 = User.new(:email => "lol@lol.com", :password => "sdfsdf", :password_confirmation => "sdfsdf", :role => :manager)
+      @owning_manager = Factory.create(:manager) # manages the projects
+      @extra_manager = Factory.create(:manager, :email => "manager@gmail.com") # does not manage the project
       @admin = Factory.create(:admin)
+      
+#      @project = Factory.create(:project, :manager => @owning_manager)
     end
     
     should "reflect their proper permissions" do
       assert_equal Canable::Roles::EmployeeRole, @user.canable_included_role
-      assert_equal Canable::Roles::ManagerRole, @manager2.canable_included_role
-      assert_equal Canable::Roles::ManagerRole, @manager.canable_included_role
+      assert_equal Canable::Roles::ManagerRole, @owning_manager.canable_included_role
+      assert_equal Canable::Roles::ManagerRole, @extra_manager.canable_included_role
       assert_equal Canable::Roles::AdminRole, @admin.canable_included_role
     end
     
@@ -21,18 +23,33 @@ class PermissionsTest < ActiveSupport::TestCase
       setup do
         @business = Factory.create(:business)
       end
+      subject { @business }
       
-      should "be editable by an administrator" do
-        puts @admin.inspect
-        assert @admin.can_update?(@business)
-        assert @business.updatable_by?(@admin)
-      end
+      should_allow_admin_crud
       
       should_eventually "be editable by a manager who manages a project for the business" do
       end
       
       should "not be editable by employees" do
-        assert ! @employee.can_update(@business)
+        assert ! @user.can_update?(@business)
+      end
+      
+      should "not be editable by managers who aren't managing any projects for the buisness" do
+        assert ! @extra_manager.can_update?(@business)
+      end
+      
+    end
+    
+    context "and a contact resource" do
+      setup do
+        @contact = Factory.create(:contact)
+      end
+      
+      subject { @contact }
+      
+      should_allow_admin_crud
+      
+      should "be editable by an administrator" do
       end
     end
   end

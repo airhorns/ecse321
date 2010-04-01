@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20100331201519) do
     t.string   "fax"
     t.string   "email"
     t.text     "notes"
-    t.integer  "address_id"
     t.integer  "business_id"
     t.datetime "created_at"
     t.datetime "updated_at"

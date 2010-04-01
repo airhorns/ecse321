@@ -5,6 +5,9 @@
 class User < ActiveRecord::Base
   include Canable::Actor
   default_role Canable::Roles::EmployeeRole
+  role_proc Proc.new { |actor|
+    actor.role
+  }
   acts_as_authentic do |c|
     # for available options see documentation in: Authlogic::ActsAsAuthentic
   end

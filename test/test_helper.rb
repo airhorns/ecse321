@@ -34,4 +34,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  def self.should_allow_admin_crud
+    should "be updatable by admin" do
+      assert @admin.can_update?(subject)
+      assert subject.updatable_by?(@admin)
+    end
+  end
 end
