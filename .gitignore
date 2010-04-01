@@ -2,5 +2,5 @@ log/*.log
 tmp/**/*
 doc
 .DS_Store
-db/development.sqlite3
+db/*.sqlite3
 .yardoc

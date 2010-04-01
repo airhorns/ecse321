@@ -1,4 +1,5 @@
 class ProjectCost < ActiveRecord::Base
+	include Canable::Ables
 	belongs_to :user
 	belongs_to :task
 

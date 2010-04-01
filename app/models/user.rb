@@ -3,6 +3,8 @@
 # created by administrators.
 # @author Harry Brundage
 class User < ActiveRecord::Base
+  include Canable::Actor
+  default_role Canable::Roles::EmployeeRole
   acts_as_authentic do |c|
     # for available options see documentation in: Authlogic::ActsAsAuthentic
   end
