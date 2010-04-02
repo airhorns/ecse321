@@ -9,6 +9,8 @@ class PermissionsTest < ActiveSupport::TestCase
       @extra_manager = Factory.create(:manager, :email => "manager@gmail.com") # does not manage the project
       @admin = Factory.create(:admin)
       
+      @not_admins = [@user, @owning_manager, @extra_manager]
+      @all_users = [@user, @owning_manager, @extra_manager, @admin]
 #      @project = Factory.create(:project, :manager => @owning_manager)
     end
     
@@ -19,38 +21,92 @@ class PermissionsTest < ActiveSupport::TestCase
       assert_equal Canable::Roles::AdminRole, @admin.canable_included_role
     end
     
-    context "and a business resource" do
+    context "and a user resource, the user resource (profile)" do
+      setup do
+        @new_user = Factory.create(:new_user)
+      end
+      subject { @new_user }
+      should_allow_admin_crud
+      should_allow_everyone_to_view
+      should_only_be_destructable_by_admins
+      
+      should "not be creatable by users if they aren't administrators" do
+        @not_admins.each do |user|
+          assert ! user.can_create?(@new_user)
+        end
+      end
+      
+      should "not be editable unless the user is editing their own profile" do
+        @all_users.each do |user|
+          assert user.can_update?(user)
+        end
+      end
+      
+      should "not be editable by anyone else" do
+        @not_admins.each do |user|
+          @all_users.each do |resource|
+            assert ! user.can_update?(resource) if user != resource
+          end
+        end
+      end
+      
+    end
+    
+    context "and a business resource, the resource" do
       setup do
         @business = Factory.create(:business)
       end
       subject { @business }
       
       should_allow_admin_crud
-      
-      should_eventually "be editable by a manager who manages a project for the business" do
+      should_allow_everyone_to_view
+      should_only_be_destructable_by_admins
+      should_only_be_editable_by_associated_project_managers
+      should_not_be_editable_by_employees
+    end
+    
+    context "and a contact resource, the resource" do
+      setup do
+        @contact = Factory.create(:contact)
       end
+      subject { @contact }      
       
-      should "not be editable by employees" do
-        assert ! @user.can_update?(@business)
+      should_allow_admin_crud
+      should_allow_everyone_to_view
+      should_only_be_destructable_by_admins
+      should_only_be_editable_by_associated_project_managers
+      should_not_be_editable_by_employees
+
+    end
+    
+    context "and an address resource, the resource" do
+      setup do
+        @business = Factory.create(:business)
+        @address = @business.address
       end
+      subject { @address }      
       
-      should "not be editable by managers who aren't managing any projects for the buisness" do
-        assert ! @extra_manager.can_update?(@business)
+      should_allow_admin_crud
+      should_allow_everyone_to_view
+      should_only_be_destructable_by_admins
+      should_only_be_editable_by_associated_project_managers
+      should_not_be_editable_by_employees
+      
+    end
+    
+    context "and an expense resource" do
+      setup do
+        #@expense = Factory.create(:expense, :project => @project)
       end
       
     end
     
-    context "and a contact resource" do
+    context "and an hour report resource" do
       setup do
-        @contact = Factory.create(:contact)
+        #@expense = Factory.create(:expense, :project => @project)
       end
       
-      subject { @contact }
-      
-      should_allow_admin_crud
-      
-      should "be editable by an administrator" do
-      end
     end
+    
   end
 end

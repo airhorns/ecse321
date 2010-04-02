@@ -41,4 +41,34 @@ class ActiveSupport::TestCase
       assert subject.updatable_by?(@admin)
     end
   end
+  
+  def self.should_allow_everyone_to_view
+    should "be viewable by everyone" do
+      @all_users.each do |user|
+        assert user.can_view?(subject)
+      end
+    end
+  end
+  
+  def self.should_only_be_destructable_by_admins
+    should "not be destructable by anyone other than admins" do
+      @not_admins.each do |user|
+        assert ! user.can_destroy?(subject)
+      end
+    end
+  end
+  
+  def self.should_only_be_editable_by_associated_project_managers
+    should_eventually "be editable by a manager who manages a project for the associated business" do
+    end
+    should "not be editable by managers who aren't managing any projects for the buisness" do
+      assert ! @extra_manager.can_update?(subject)
+    end
+  end
+  
+  def self.should_not_be_editable_by_employees
+    should "not be editable by employees" do
+      assert ! @user.can_update?(subject)
+    end
+  end
 end

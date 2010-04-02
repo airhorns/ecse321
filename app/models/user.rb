@@ -4,6 +4,7 @@
 # @author Harry Brundage
 class User < ActiveRecord::Base
   include Canable::Actor
+  include Canable::Ables
   default_role Canable::Roles::EmployeeRole
   role_proc Proc.new { |actor|
     actor.role
