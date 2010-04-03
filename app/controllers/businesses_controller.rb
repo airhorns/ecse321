@@ -16,6 +16,7 @@ class BusinessesController < ApplicationController
   # Route: GET /businesses/1
   def show
     @business = Business.find(params[:id])
+    enforce_show_permission(@business)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,6 +28,7 @@ class BusinessesController < ApplicationController
   def new
     @business = Business.new
     @business.address ||= Address.new
+    enforce_create_permission(@business)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,12 +39,15 @@ class BusinessesController < ApplicationController
   # Route: GET /businesses/1/edit
   def edit
     @business = Business.find(params[:id])
+    enforce_update_permission(@business)
+    
   end
 
   # Accepts POST data from the {BusinessesController#new} form to validate and create a new +Business+ record
   # Route: POST /businesses
   def create
     @business = Business.new(params[:business])
+    enforce_create_permission(@business)
 
     respond_to do |format|
       if @business.save
@@ -60,8 +65,7 @@ class BusinessesController < ApplicationController
   def update
     
     @business = Business.find(params[:id])
-    puts @business
-    puts params
+    enforce_create_permission(@business)
     
     respond_to do |format|
       if @business.update_attributes(params[:business])
@@ -77,8 +81,9 @@ class BusinessesController < ApplicationController
   # Route: DELETE /businesses/1
   def destroy
     @business = Business.find(params[:id])
+    enforce_destroy_permission(@business)
     @business.destroy
-
+    
     respond_to do |format|
       format.html { redirect_to(businesses_url) }
     end

@@ -8,7 +8,6 @@ one:
   fax: MyString
   email: MyString
   notes: MyText
-  address_id: 1
 
 two:
   name: MyString
@@ -18,4 +17,3 @@ two:
   fax: MyString
   email: MyString
   notes: MyText
-  address_id: 1

@@ -3,7 +3,19 @@
 # created by administrators.
 # @author Harry Brundage
 class User < ActiveRecord::Base
+  include Canable::Actor
+  include Canable::Ables
+  default_role Canable::Roles::EmployeeRole
+  role_proc Proc.new { |actor|
+    actor.role
+  }
   acts_as_authentic do |c|
     # for available options see documentation in: Authlogic::ActsAsAuthentic
+  end
+  
+  validates_presence_of :active, :first_name, :last_name, :hourly_rate, :telephone, :role
+  
+  def after_initialize
+    self.role ||= :employee
   end
 end

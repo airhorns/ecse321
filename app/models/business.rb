@@ -2,6 +2,7 @@
 # +Contact+s and categorize their origin. 
 # @author Harry Brundage
 class Business < ActiveRecord::Base
+  include Canable::Ables
   has_many :contacts
   
   # Receiving end of the polymorphic address association
