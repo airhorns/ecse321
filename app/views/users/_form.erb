@@ -1,5 +1,26 @@
+<%= form.label :first_name %><br />
+<%= form.text_field :first_name %><br />
+<br />
+<%= form.label :last_name %><br />
+<%= form.text_field :last_name %><br />
+<br />
+<%= form.label :telephone %><br />
+<%= form.text_field :telephone %><br />
+<br />
+<%= form.label :employee_number %><br />
+<%= form.text_field :employee_number %><br />
+<br />
 <%= form.label :email %><br />
 <%= form.text_field :email %><br />
+<br />
+<%= form.label :role %><br />
+<%= form.select "role" , ['employee', 'manager', 'admin'] %><br />
+<br />
+<%= form.label :active %><br />
+<%= form.check_box :active %><br />
+<br />
+<%= form.label :hourly_rate %><br />
+<%= form.text_field :hourly_rate %><br />
 <br />
 <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
 <%= form.password_field :password %><br />

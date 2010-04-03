@@ -11,6 +11,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   def show
     @contact = Contact.find(params[:id])
+    enforce_view_permission(@contact)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,6 +22,7 @@ class ContactsController < ApplicationController
   def new
     @contact = Contact.new
     @contact.address = Address.new
+    enforce_create_permission(@contact)
     
     respond_to do |format|
       format.html # new.html.erb
@@ -30,11 +32,14 @@ class ContactsController < ApplicationController
   # GET /contacts/1/edit
   def edit
     @contact = Contact.find(params[:id])
+    enforce_update_permission(@contact)
+    
   end
 
   # POST /contacts
   def create
     @contact = Contact.new(params[:contact])
+    enforce_create_permission(@contact)
 
     respond_to do |format|
       if @contact.save
@@ -49,6 +54,7 @@ class ContactsController < ApplicationController
   # PUT /contacts/1
   def update
     @contact = Contact.find(params[:id])
+    enforce_update_permission(@contact)
 
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
@@ -63,6 +69,8 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   def destroy
     @contact = Contact.find(params[:id])
+    enforce_destroy_permission(@contact)
+    
     @contact.destroy
 
     respond_to do |format|

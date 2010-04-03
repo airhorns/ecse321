@@ -12,4 +12,10 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     # for available options see documentation in: Authlogic::ActsAsAuthentic
   end
+  
+  validates_presence_of :active, :first_name, :last_name, :hourly_rate, :telephone, :role
+  
+  def after_initialize
+    self.role ||= :employee
+  end
 end

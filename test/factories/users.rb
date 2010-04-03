@@ -1,7 +1,12 @@
 Factory.define :user do |u|
+  u.active true
   u.email "employee@email.com"
   u.password "apple123"
   u.password_confirmation "apple123"
+  u.first_name "Joe"
+  u.last_name "Blow"
+  u.telephone "5555555555"
+  u.hourly_rate 10
 end
 
 # needed for the example with all three types of users trying to create a new user
