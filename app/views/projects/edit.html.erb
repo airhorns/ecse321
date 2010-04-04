@@ -1,0 +1,10 @@
+<h1>Editing project</h1>
+
+<% form_for(@project) do |f| %>
+
+	<%= render :partial => 'form' %>
+
+<% end %>
+
+<%= link_to 'Show', @project %> |
+<%= link_to 'Back', projects_path %>

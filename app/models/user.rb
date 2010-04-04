@@ -18,4 +18,12 @@ class User < ActiveRecord::Base
   def after_initialize
     self.role ||= :employee
   end
+  
+  def full_name
+    self.last_name + ', ' + self.first_name
+  end
+  
+  def to_s
+    self.full_name
+  end
 end

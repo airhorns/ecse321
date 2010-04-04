@@ -13,8 +13,8 @@
 <% @expenses.each do |expense| %>
   <tr>
     <td><%=h expense.name %></td>
-    <td><%=h expense.user_id %></td>
-    <td><%=h expense.task_id %></td>
+    <td><%=h expense.user %></td>
+    <td><%=h expense.task %></td>
     <td><%=h expense.cost %></td>
     <td><%=h expense.date %></td>
     <td><%=h expense.get_state %></td>

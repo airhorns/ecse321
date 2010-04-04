@@ -25,6 +25,10 @@ class HourReportsController < ApplicationController
   # GET /hour_reports/new.xml
   def new
     @hour_report = HourReport.new
+    @tasks = Task.find(:all)
+    @users = User.find(:all)
+    
+    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +39,10 @@ class HourReportsController < ApplicationController
   # GET /hour_reports/1/edit
   def edit
     @hour_report = HourReport.find(params[:id])
+    @tasks = Task.find(:all)
+    @users = User.find(:all)
+    
+    
   end
 
   # POST /hour_reports

@@ -8,11 +8,11 @@
 </p>
 <p>
   <%= f.label :user_id %><br />
-  <%= f.text_field :user_id %>
+  <%= f.collection_select :user_id, @users, :id, :full_name %>
 </p>
 <p>
   <%= f.label :task_id %><br />
-  <%= f.text_field :task_id %>
+  <%= f.collection_select :task_id, @tasks, :id, :full_name %>
 </p>
 <p>
   <%= f.label :date %><br />

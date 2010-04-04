@@ -39,7 +39,13 @@
 						expenses.add "New Expense", new_expense_path if can_create?(Expense.new)
 					  end
 					 
-					  root.add "Projects", "#"
+					root.add "Projects", projects_path do |projects|
+						projects.add "New Project", new_project_path if can_create?(Project.new)
+					end
+					
+					root.add "Tasks", tasks_path do |tasks|
+						tasks.add "New Task", new_task_path if can_create?(Task.new)
+					end
 					  
 					  root.add "Invoices", "#"
 					
