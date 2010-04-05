@@ -1,0 +1,5 @@
+<ul>
+<% @activity.each do |a| %>
+	<li><b><%= activity_message_for(a)%></b> - <i><%= a.created_at.to_s%></i></li>
+<% end %>
+</ul>

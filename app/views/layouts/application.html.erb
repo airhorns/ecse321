@@ -33,7 +33,7 @@
 					<%= link_to "Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %> 
 					<br/>
 					<% semantic_menu :id => "menu" do |root|
-					  root.add "Dashboard", root_path, :class => "ss_sprite ss_application_view_tile"
+					  root.add "Dashboard", '/dashboard', :class => "ss_sprite ss_application_view_tile"
 					  
 					  root.add "Time Tracking", hour_reports_path, :class => "ss_sprite ss_time" do |hours|
 						hours.add "New Hour Report", new_hour_report_path, :class => "ss_sprite ss_time_add" if can_create?(HourReport.new)
