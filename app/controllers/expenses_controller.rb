@@ -25,6 +25,10 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @expense = Expense.new
+    @tasks = Task.find(:all)
+    @users = User.find(:all)
+    
+    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +39,9 @@ class ExpensesController < ApplicationController
   # GET /expenses/1/edit
   def edit
     @expense = Expense.find(params[:id])
+    @tasks = Task.find(:all)
+    @users = User.find(:all)
+    
   end
 
   # POST /expenses

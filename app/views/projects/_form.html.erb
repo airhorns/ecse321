@@ -1,0 +1,33 @@
+<% form_for(@project) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </p>
+  <p>
+    <%= f.label :due_date %><br />
+    <%= f.date_select :due_date %>
+  </p>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.collection_select :user_id, @users, :id, :full_name %>
+  </p>
+
+  <p>
+    <%= f.label :business_id %><br />
+    <%= f.collection_select :business_id, @businesses, :id, :name %>
+  </p>
+
+
+
+  <p>
+  <% if @project.name then label = 'Update' else label = 'Create' end%>
+    <%= f.submit label %>
+  </p>
+<% end %>

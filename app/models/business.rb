@@ -4,6 +4,7 @@
 class Business < ActiveRecord::Base
   include Canable::Ables
   has_many :contacts
+  has_many :projects
   
   # Receiving end of the polymorphic address association
   has_one :address, :dependent => :destroy, :as => :addressable

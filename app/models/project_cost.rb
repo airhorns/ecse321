@@ -4,10 +4,7 @@ class ProjectCost < ActiveRecord::Base
   validates_presence_of :name, :description, :task_id
   belongs_to :user
   belongs_to :task
-
-  def get_cost
-    nil
-  end
+  belongs_to :project
 
   def get_state
     case self.state

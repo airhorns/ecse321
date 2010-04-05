@@ -44,9 +44,11 @@
 					  end
 					 
 					  root.add "Projects", "#", :class => "ss_sprite ss_folder" do |projects|
-						projects.add "New Project", "#", :class => "ss_sprite ss_folder_add" if can_create?(Expense.new)
+						projects.add "New Project", new_project_path, :class => "ss_sprite ss_folder_add" if can_create?(Project.new)
+						projects.add "Tasks", tasks_path, :class => "ss_sprite ss_application_form"
+						projects.add "New Task", new_task_path, :class => "ss_sprite ss_application_form_add" if can_create?(Task.new)
 					  end
-					  
+										  
 					  root.add "Invoices", "#", :class => "ss_sprite ss_page"
 					
 					  root.add "Contacts", contacts_path, :class => "ss_sprite ss_group" do |contacts|
