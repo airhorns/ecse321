@@ -1,23 +1,23 @@
 <% f.fields_for :address do |a| %>
-  <div class="field span-10 last">
+  <p class="field span-10 last">
     <%= a.label :street %><br />
     <%= a.text_field :street1, :class => "span-10" %>
     <%= a.text_field :street2, :class => "span-10" %>
-  </div>
-  <div class="field span-5">
+  </p>
+  <p class="field span-5">
     <%= a.label :city %><br />
     <%= a.text_field :city, :class => "span-5" %>
-  </div>
-  <div class="field span-5 last">
+  </p>
+  <p class="field span-5 last">
     <%= a.label :zipcode, "Postal/Zip code" %><br />
     <%= a.text_field :zipcode, :class => "span-5" %>
-  </div>
-  <div class="field span-5">
+  </p>
+  <p class="field span-5">
     <%= a.label :state, "Province/State" %><br />
     <%= a.state_select :state, Carmen.default_country, {}, :class => "span-5" %>
-  </div>
-  <div class="field span-5 last">
+  </p>
+  <p class="field span-5 last">
     <%= a.label :country, "Country" %><br />
     <%= a.country_select :country, ["CA", "US"], {}, :class => "span-5" %>
-  </div>
+  </p>
 <% end %>

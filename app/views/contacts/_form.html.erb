@@ -1,38 +1,42 @@
 <% form_for(@contact) do |f| %>
   <%= f.error_messages %>
-  <div class="span-9">
-	  <p>
+  <div class="span-10">
+	  <p class="span-10">
 	    <%= f.label :name %><br />
-	    <%= f.text_field :name %>
+	    <%= f.text_field :name, :class => "span-10" %>
 	  </p>
-	  <p>
+	  <p class="span-5">
 	    <%= f.label :department %><br />
-	    <%= f.text_field :department %>
+	    <%= f.text_field :department, :class => "span-5" %>
 	  </p>
-	  <p>
-	    <%= f.label :telephone %><br />
-	    <%= f.text_field :telephone %>
-	  </p>
-	  <p>
-	    <%= f.label :mobile %><br />
-	    <%= f.text_field :mobile %>
-	  </p>
-	  <p>
-	    <%= f.label :fax %><br />
-	    <%= f.text_field :fax %>
-	  </p>
-	  <p>
+	  <p class="span-5 last">
 	    <%= f.label :email %><br />
-	    <%= f.text_field :email %>
+	    <%= f.text_field :email, :class => "span-5 last" %>
 	  </p>
-	  <p>
+	  <p class="span-5">
+	    <%= f.label :telephone %><br />
+	    <%= f.text_field :telephone, :class => "span-5" %>
+	  </p>
+	  <p class="span-5 last">
+	    <%= f.label :mobile %><br />
+	    <%= f.text_field :mobile, :class => "span-5 last" %>
+	  </p>
+	  <p class="span-5">
+	    <%= f.label :fax %><br />
+	    <%= f.text_field :fax, :class => "span-5"  %>
+	  </p>
+	  <hr/>
+	  <%= render :partial => 'addresses/form', :locals => {:f => f} %>
+	  <hr/>
+	  <p class="span-9 last">
 	    <%= f.label :notes %><br />
-	    <%= f.text_area :notes %>
+	    <%= f.text_area :notes, :class => "span-9 last" %>
 	  </p>
-	</div>
-	<div class="prepend-1 span-10 last">
-		<%= render :partial => 'addresses/form', :locals => {:f => f} %>
-	</div>
+	
+  </div>
+  <div class="span-10 last">
+	&nbsp;
+  </div>
 	<div class="clear"></div>
   <p>
     <%= f.submit 'Create' %>

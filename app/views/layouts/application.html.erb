@@ -12,7 +12,11 @@
 		<link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print">	
 		<!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 		
+		<link rel="stylesheet" href="/stylesheets/application.css" type="text/css" media="screen">	
+		
 		<%= javascript_include_tag :defaults %>
+		<%= javascript_include_tag "menu" %>
+		
 	</head>
 	<body>
 		<!--- #container start -->
@@ -28,35 +32,39 @@
 					<%= link_to "My Account", account_path %> | 
 					<%= link_to "Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %> 
 					<br/>
-					<% semantic_menu :class => "menu" do |root|
-					  root.add "Dashboard", root_path
+					<% semantic_menu :id => "menu" do |root|
+					  root.add "Dashboard", root_path, :class => "ss_sprite ss_application_view_tile"
 					  
-					  root.add "Time Tracking", hour_reports_path do |hours|
-						hours.add "New Hour Report", new_hour_report_path if can_create?(HourReport.new)
+					  root.add "Time Tracking", hour_reports_path, :class => "ss_sprite ss_time" do |hours|
+						hours.add "New Hour Report", new_hour_report_path, :class => "ss_sprite ss_time_add" if can_create?(HourReport.new)
 					  end
 					  
-					  root.add "Expenses", expenses_path do |expenses|
-						expenses.add "New Expense", new_expense_path if can_create?(Expense.new)
+					  root.add "Expenses", expenses_path, :class => "ss_sprite ss_money" do |expenses|
+						expenses.add "New Expense", new_expense_path, :class => "ss_sprite ss_money_add" if can_create?(Expense.new)
 					  end
 					 
-					  root.add "Projects", "#"
-					  
-					  root.add "Invoices", "#"
-					
-					  root.add "Contacts", contacts_path do |contacts|
-						contacts.add "Add Contact", new_contact_path if can_create?(Contact.new)
-						contacts.add "List Businesses", businesses_path
-						contacts.add "Add Business", new_business_path if can_create?(Business.new)
+					  root.add "Projects", "#", :class => "ss_sprite ss_folder" do |projects|
+						projects.add "New Project", "#", :class => "ss_sprite ss_folder_add" if can_create?(Expense.new)
 					  end
 					  
-					  root.add "Users", users_path do |users|
-						users.add "Add User", new_account_path if can_create?(User.new)
+					  root.add "Invoices", "#", :class => "ss_sprite ss_page"
+					
+					  root.add "Contacts", contacts_path, :class => "ss_sprite ss_group" do |contacts|
+						contacts.add "Add Contact", new_contact_path, :class => "ss_sprite ss_group_add" if can_create?(Contact.new)
+						contacts.add "List Businesses", businesses_path, :class => "ss_sprite ss_briefcase"
+						contacts.add "Add Business", new_business_path, :class => "ss_sprite ss_briefcase" if can_create?(Business.new)
+					  end
+					  
+					  root.add "Users", users_path, :class => "ss_sprite ss_user" do |users|
+						users.add "Add User", new_account_path, :class => "ss_sprite ss_user_add" if can_create?(User.new)
 					  end
 					  
 					end %>
 				<% end %>
 			</div>
-			
+			<script type="text/javascript">
+				var menu = new DropDownMenu($('menu'));
+			</script>
 			<!--- #content start -->
 			<div id="content" class="span-20 last">
 				
