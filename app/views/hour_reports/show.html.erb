@@ -38,6 +38,11 @@
   <%=h @hour_report.state_to_s %>
 </p>
 
+<p>
+<%= link_to 'Reject', :controller => 'hour_reports', :action => 'reject', :id => @hour_report %> |
+<%= link_to 'Approve', :controller => 'hour_reports', :action => 'approve', :id => @hour_report %>
+</p>
+
 
 <%= link_to 'Edit', edit_hour_report_path(@hour_report) %> |
 <%= link_to 'Back', hour_reports_path %>
