@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   belongs_to :business
   belongs_to :user
   has_many :tasks
+  has_and_belongs_to_many :users
   
   validates_presence_of :name, :notes, :due_date, :user_id, :business_id
   

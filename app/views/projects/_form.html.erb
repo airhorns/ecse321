@@ -24,7 +24,14 @@
     <%= f.collection_select :business_id, @businesses, :id, :name %>
   </p>
 
-
+	<p><b>Users:</b>
+   <% for user in User.find(:all) %>  
+      <div>  
+        <%= check_box_tag "project[user_ids][]", user.id, @project.users.include?(user) %>  
+        <%= user.full_name %>  
+      </div>  
+  <% end %>  
+	</p>
 
   <p>
   <% if @project.name then label = 'Update' else label = 'Create' end%>
