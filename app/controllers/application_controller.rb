@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user_session, :current_user
 
+  rescue_from Canable::Transgression, :with => :permission_error
+  
   private
   
     # Returns the current user's +UserSession+ if it exists. The session will only exist if a user has successfully logged in. 
@@ -64,5 +66,10 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+    
+    def permission_error
+      flash[:error] = "You do not have permission to access this page, please contact an administrator if you think is an error."
+      redirect_to(root_url)
     end
 end

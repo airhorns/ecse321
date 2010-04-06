@@ -18,7 +18,8 @@ class ExpensesController < ApplicationController
   # GET /expenses/1.xml
   def show
     @expense = Expense.find(params[:id])
-
+    enforce_view_permission(@expense)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @expense }
@@ -29,6 +30,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @expense = Expense.new
+    enforce_create_permission(@expense)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,6 +41,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/1/edit
   def edit
     @expense = Expense.find(params[:id])
+    enforce_update_permission(@expense)
     
   end
 
@@ -48,7 +51,8 @@ class ExpensesController < ApplicationController
     @expense = Expense.new(params[:expense])
     @expense.state = Expense::Pending
     @expense.user_id = current_user.id
-
+    enforce_create_permission(@expense)
+    
     respond_to do |format|
       if @expense.save
         flash[:notice] = 'Expense was successfully created.'
@@ -66,9 +70,8 @@ class ExpensesController < ApplicationController
   def update
     @expense = Expense.find(params[:id])
 		@expense.state = Expense::Pending
-
-    puts "llllllllllllloooooooooooooooolllllllllllllllll"
-    puts @users.inspect
+    enforce_update_permission(@expense)
+    
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         flash[:notice] = 'Expense was successfully updated.'
@@ -85,6 +88,8 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1.xml
   def destroy
     @expense = Expense.find(params[:id])
+    enforce_destroy_permission(@expense)
+    
     @expense.destroy
 
     respond_to do |format|

@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
+<<<<<<< HEAD:app/controllers/projects_controller.rb
  
+=======
+
+>>>>>>> 5836fde5e6925c02a890d0972191f26d36099d7c:app/controllers/projects_controller.rb
   # GET /projects
   # GET /projects.xml
   def index
@@ -50,7 +54,9 @@ class ProjectsController < ApplicationController
   # POST /projects.xml
   def create
     @project = Project.new(params[:project])
-
+    @businesses = Business.find(:all)
+	@users = User.find(:all)
+	
     respond_to do |format|
       if @project.save
         flash[:notice] = 'Project was successfully created.'

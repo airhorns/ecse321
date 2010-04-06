@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include Canable::Actor
   include Canable::Ables
   default_role Canable::Roles::EmployeeRole
+	has_and_belongs_to_many :projects
   
   role_proc Proc.new { |actor|
     actor.role
