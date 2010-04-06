@@ -6,7 +6,19 @@ class HourReportsController < ApplicationController
   # GET /hour_reports
   # GET /hour_reports.xml
   def index
-    @hour_reports = HourReport.all
+    @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+    @hour_report = HourReport.new
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @hour_reports }
+    end
+  end
+
+  # GET /hour_reports
+  # GET /hour_reports.xml
+  def all
+    @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id })
 
     respond_to do |format|
       format.html # index.html.erb
@@ -72,7 +84,7 @@ class HourReportsController < ApplicationController
   # PUT /hour_reports/1.xml
   def update
     @hour_report = HourReport.find(params[:id])
-                @hour_report.state = 0          # reset state to 'Pending' after editing
+    @hour_report.state = HourReport::Pending
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -100,7 +112,7 @@ class HourReportsController < ApplicationController
 
   def approve
     @hour_report = HourReport.find(params[:id])
-    @hour_report.state = 1
+    @hour_report.state = HourReport::Approved
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -116,7 +128,7 @@ class HourReportsController < ApplicationController
 
   def reject
     @hour_report = HourReport.find(params[:id])
-    @hour_report.state = 2
+    @hour_report.state = HourReport::Rejected
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])

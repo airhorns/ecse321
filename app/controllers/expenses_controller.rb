@@ -46,7 +46,7 @@ class ExpensesController < ApplicationController
   # POST /expenses.xml
   def create
     @expense = Expense.new(params[:expense])
-		@expense.state = Expense::Pending
+    @expense.state = Expense::Pending
     @expense.user_id = current_user.id
 
     respond_to do |format|
