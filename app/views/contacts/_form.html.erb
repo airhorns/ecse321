@@ -34,11 +34,17 @@
 	  </p>
 	
   </div>
-  <div class="span-10 last">
-	&nbsp;
-  </div>
+	<div class="prepend-1 span-9 last">
+		<p class="span-9 last">
+			<%= f.label :business %><br />    
+	    	<%= f.select(:business_id, @businesses, {:prompt => 'Select a Business ---'}) %>
+		</p>
+		<div id="business_details" class="span-9 last">
+			<%= render(:partial => 'businesses/details', :locals => {:business => @contact.business}) unless @contact.business.nil? %>
+		</div>
+	</div>
 	<div class="clear"></div>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Submit' %>
   </p>
 <% end %>

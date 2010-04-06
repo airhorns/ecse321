@@ -1,4 +1,8 @@
+# HourReportsController manages the {HourReport} objects by providing a RESTful HTML interface. 
+# @author Shen Chen Xu
 class HourReportsController < ApplicationController
+  before_filter :require_user
+  
   # GET /hour_reports
   # GET /hour_reports.xml
   def index
@@ -49,7 +53,8 @@ class HourReportsController < ApplicationController
   # POST /hour_reports.xml
   def create
     @hour_report = HourReport.new(params[:hour_report])
-                @hour_report.state = 0          # initial state is 'Pending'
+    @hour_report.state = HourReport::Pending
+    @hour_report.user_id = current_user.id
 
     respond_to do |format|
       if @hour_report.save

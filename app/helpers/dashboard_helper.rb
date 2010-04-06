@@ -19,8 +19,10 @@ module DashboardHelper
 			
 			when 'HourReport'
 				'Hours for ' + link_to( object.name, object ) + ' have been added to ' + link_to( object.task.name, object.task ) + '.'
+				
 			when 'Task'
-				'Task ' + link_to (object.name, object) + ' has been added to ' + link_to( object.project.name, object.project) + '.'
+				'Task ' + link_to(object.name, object) + ' has been added to ' + link_to( object.project.name, object.project) + '.'
+				
 		end
 	end
 end

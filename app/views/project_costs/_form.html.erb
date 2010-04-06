@@ -7,12 +7,8 @@
   <%= f.text_area :description %>
 </p>
 <p>
-  <%= f.label :user_id %><br />
-  <%= f.collection_select :user_id, @users, :id, :full_name %>
-</p>
-<p>
   <%= f.label :task_id %><br />
-  <%= f.collection_select :task_id, @tasks, :id, :full_name %>
+  <%= f.collection_select :task_id, Task.all, :id, :full_name %>
 </p>
 <p>
   <%= f.label :date %><br />

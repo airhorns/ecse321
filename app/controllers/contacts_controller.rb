@@ -1,4 +1,7 @@
 class ContactsController < ApplicationController
+  before_filter :require_user
+  before_filter :business_list
+  
   # GET /contacts
   def index
     @contacts = Contact.all
@@ -76,5 +79,11 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(contacts_url) }
     end
+  end
+  
+  private
+  
+  def business_list
+    @businesses = Business.all.collect {|p| [ p.name, p.id ] }
   end
 end

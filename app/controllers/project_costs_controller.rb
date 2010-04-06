@@ -1,4 +1,9 @@
+# ProjectCostsController manages the {ProjectCost} objects by providing a RESTful HTML interface. 
+# @author Shen Chen Xu
 class ProjectCostsController < ApplicationController
+  before_filter :require_user
+  
+
   # GET /project_costs
   # GET /project_costs.xml
   def index
