@@ -61,7 +61,7 @@ module Canable
       # update: only those reported by themselves
       # destroy: never
       # create: never
-      def can_view_project_cost?(project_cost)
+      def can_view_hour_report?(project_cost)
         project_cost.user == self
       end
 
@@ -81,7 +81,7 @@ module Canable
       def can_create_hour_report?(hour_report)
         true
       end
-      
+    
     end
   
     module ManagerRole

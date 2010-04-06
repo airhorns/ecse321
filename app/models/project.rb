@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   
   
   def get_cost
-    self.project_costs.inject(0) { |sum, cost| sum += cost.get_cost }
+    self.tasks.inject(0) { |sum, cost| sum += cost.get_cost }
   end
   
   def to_s
