@@ -22,7 +22,6 @@ class Address < ActiveRecord::Base
     a.insert 1, self.street2 unless self.street2.blank?  
     a.join(", ")
   end
-  
   private
   
   # Sets the object's default region when it is instantiated. Called by the +after_initialize+ callback.

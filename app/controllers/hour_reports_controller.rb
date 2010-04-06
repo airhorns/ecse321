@@ -79,6 +79,7 @@ class HourReportsController < ApplicationController
     @hour_report = HourReport.find(params[:id])
     @hour_report.state = 0          # reset state to 'Pending' after editing
     enforce_update_permission(@hour_report)
+    
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully updated.'
@@ -96,6 +97,7 @@ class HourReportsController < ApplicationController
   def destroy
     @hour_report = HourReport.find(params[:id])
     @hour_report.destroy
+    enforce_destroy_permission(@hour_report)
 
     respond_to do |format|
       format.html { redirect_to(hour_reports_url) }
@@ -106,6 +108,7 @@ class HourReportsController < ApplicationController
   def approve
     @hour_report = HourReport.find(params[:id])
     @hour_report.state = 1
+    enforce_approve_permission(@hour_report)
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -122,6 +125,7 @@ class HourReportsController < ApplicationController
   def reject
     @hour_report = HourReport.find(params[:id])
     @hour_report.state = 2
+    enforce_reject_permission(@hour_report)
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
