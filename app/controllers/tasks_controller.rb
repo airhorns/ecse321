@@ -47,6 +47,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @projects = Project.find(:all)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8a40123c50f156438b1dc3a0968ea85759164457
 
     respond_to do |format|
       if @task.save
