@@ -1,15 +1,33 @@
 <% form_for(@expense) do |f| %>
-  <%= f.error_messages %>
+<%= f.error_messages %>
 
-  <%= render :partial => 'project_costs/form', :locals => {:f => f} %>
+<p>
+  Task:<br />
+  <%= f.collection_select :task_id, Task.all, :id, :full_name %>
+</p>
 
-  <p>
-    <%= f.label :cost %><br />
+<p>
+  Item:<br />
+  <%= f.text_field :name %>
+</p>
+
+<p>
+    Cost:<br />
     <%= f.text_field :cost %>
-  </p>
+</p>
 
-  <p>
+<p>
+  Description:<br />
+  <%= f.text_area :description %>
+</p>
+
+<p>
+  Date:<br />
+  <%= f.date_select :date %>
+</p>
+
+<p>
   <% if @expense.cost then label = 'Update' else label = 'Create' end%>
-    <%= f.submit label %>
-  </p>
+  <%= f.submit label %>
+</p>
 <% end %>

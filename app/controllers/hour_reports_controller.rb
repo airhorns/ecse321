@@ -89,13 +89,9 @@ class HourReportsController < ApplicationController
   # PUT /hour_reports/1.xml
   def update
     @hour_report = HourReport.find(params[:id])
-<<<<<<< HEAD:app/controllers/hour_reports_controller.rb
     @hour_report.state = HourReport::Pending
 
-=======
-    @hour_report.state = 0          # reset state to 'Pending' after editing
     enforce_update_permission(@hour_report)
->>>>>>> 5836fde5e6925c02a890d0972191f26d36099d7c:app/controllers/hour_reports_controller.rb
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully updated.'
