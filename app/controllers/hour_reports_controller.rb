@@ -5,8 +5,12 @@ class HourReportsController < ApplicationController
   
   # GET /hour_reports
   # GET /hour_reports.xml
-  def index
-    @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+  def index 
+    if params[:all]
+      @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id })
+    else
+      @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+    end
     @hour_report = HourReport.new
 
     respond_to do |format|

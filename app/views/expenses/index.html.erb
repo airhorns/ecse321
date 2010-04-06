@@ -3,7 +3,14 @@
 <h2>Recent expenses</h2>
 <%= render :partial => 'index' %>
 
-<br />
 
+<% if !params[:all] %>
+<%= link_to 'All expense', expenses_path + "?all=true" %>
+<br><br>
 <h2>New expense</h2>
 <%= render :partial => 'form' %>
+<%else%>
+<%= link_to 'Back', expenses_path %>
+<%end%>
+
+<%#= link_to 'New hour_report', new_hour_report_path %>

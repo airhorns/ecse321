@@ -1,10 +1,5 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-<<<<<<< HEAD:app/controllers/projects_controller.rb
- 
-=======
-
->>>>>>> 5836fde5e6925c02a890d0972191f26d36099d7c:app/controllers/projects_controller.rb
   # GET /projects
   # GET /projects.xml
   def index

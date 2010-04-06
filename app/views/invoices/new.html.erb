@@ -10,7 +10,7 @@
   
   <p>
     <%= f.label :project %><br /> 
-	<%= collection_select(:post, :author_id, Invoice.all, :id, :invoice_name, {:prompt => true}) %>
+	<%= collection_select(:post, :author_id, Project.all, :id, :invoice_name, {:prompt => true}) %>
 
   </p>
   

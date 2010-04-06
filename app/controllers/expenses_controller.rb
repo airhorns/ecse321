@@ -6,7 +6,11 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.xml
   def index
-    @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+    if params[:all]
+      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id })
+    else
+      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+    end
     @expense = Expense.new
 
     respond_to do |format|

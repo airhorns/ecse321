@@ -33,6 +33,12 @@
   <%=h @expense.state_to_s %>
 </p>
 
+<p>
+<%= link_to 'Reject', :controller => 'expenses', :action => 'reject', :id => @expense %> |
+<%= link_to 'Approve', :controller => 'expenses', :action => 'approve', :id => @expense %>
+</p>
 
+<p>
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
 <%= link_to 'Back', expenses_path %>
+</p>

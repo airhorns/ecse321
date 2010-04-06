@@ -3,9 +3,14 @@
 <h2>Recent hour report</h2>
 <%= render :partial => 'index' %>
 
-<br />
 
+<% if !params[:all] %>
+<%= link_to 'All hour reports', hour_reports_path + "?all=true" %>
+<br><br>
 <h2>New hour report</h2>
 <%= render :partial => 'form' %>
+<%else%>
+<%= link_to 'Back', hour_reports_path %>
+<%end%>
 
 <%#= link_to 'New hour_report', new_hour_report_path %>
