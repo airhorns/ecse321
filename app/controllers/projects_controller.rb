@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-  w
+  
   # GET /projects
   # GET /projects.xml
   def index
