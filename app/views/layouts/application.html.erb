@@ -38,7 +38,7 @@
 			<div class="sidebar span-4">
 				<% if current_user %> 
 					<% semantic_menu :id => "menu" do |root|
-					  root.add "Dashboard", '/dashboard', :class => "ss_sprite ss_application_view_tile"
+					  root.add "Dashboard", root_path, :class => "ss_sprite ss_application_view_tile"
 					  
 					  root.add "Time Tracking", hour_reports_path, :class => "ss_sprite ss_time" do |hours|
 						hours.add "New Hour Report", new_hour_report_path, :class => "ss_sprite ss_time_add" if can_create?(HourReport.new)
@@ -62,9 +62,11 @@
 						contacts.add "Add Business", new_business_path, :class => "ss_sprite ss_briefcase" if can_create?(Business.new)
 					  end
 					  
-					  root.add "Users", users_path, :class => "ss_sprite ss_user" do |users| if can_view?(User.new)
-						users.add "Add User", new_account_path, :class => "ss_sprite ss_user_add" if can_create?(User.new)
-					  end
+					  if can_view?(User.new)
+					  	root.add "Users", users_path, :class => "ss_sprite ss_user" do |users| 
+							users.add "Add User", new_account_path, :class => "ss_sprite ss_user_add" if can_create?(User.new)
+						end
+				  	  end
 					  
 					end %>
 				<% end %>
