@@ -3,7 +3,11 @@
 class ProjectCost < ActiveRecord::Base
   include Canable::Ables
 	
+<<<<<<< HEAD:app/models/project_cost.rb
   validates_presence_of :user_id, :task_id
+=======
+  validates_presence_of :description, :user_id, :task_id
+>>>>>>> 0fc4aed2cdb98c577b47cfe64ba6a3ac60605b85:app/models/project_cost.rb
   belongs_to :user
   belongs_to :task
 

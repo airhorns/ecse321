@@ -1,6 +1,13 @@
 require 'test_helper'
 
 class ExpensesControllerTest < ActionController::TestCase
+  context "Without a logged in user" do
+    should_not_allow_any_actions
+  end
+  
+  context "With a logged in administrator user" do
+    
+  end
   test "should get index" do
     get :index
     assert_response :success
