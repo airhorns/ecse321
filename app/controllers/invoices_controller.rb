@@ -21,9 +21,10 @@ class InvoicesController < ApplicationController
 	@invoices = Invoice.find(:all)
 	#@all_expenses = Expense.find(:all)
 	
-	start_date = 2008-03-31
-	end_date = 2018-03-31
-	@all_expenses = Expense.find(:all, :conditions => {:date > '2009-03-31'})
+	start_date = '2010-03-31'
+	end_date = '2018-03-31'
+	@all_expenses = Expense.find(:all, :conditions => {:date => start_date..end_date})
+	
 
     respond_to do |format|
       format.html # index.html.erb
