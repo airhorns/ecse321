@@ -52,6 +52,30 @@
 <% end %>
 </table>
 ////////////////////////////////
+
+<h1>Listing tasks</h1>
+
+<table>
+  <tr>
+	<td>Name</td>
+	<td>Project</td>
+	<td># of Costs</td>
+	<td>Cost</td>
+  </tr>
+
+<% @all_tasks.each do |task| %>
+  <tr>
+	<td><%= task.name %></td>
+	<td><%= task.project %></td>
+	<td><%= task.project_costs.size %></td>
+	<td><%= task.get_cost %></td>
+    <td><%= link_to 'Show', task %></td>
+    <td><%= link_to 'Edit', edit_task_path(task) %></td>
+    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+////////////////////////////////////////
 <br />
 
 <%= link_to 'New invoice', new_invoice_path %>
