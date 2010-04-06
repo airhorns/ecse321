@@ -61,7 +61,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_allow_admin_crud
       should_allow_everyone_to_view
       should_only_be_destructable_by_admins
-      should_only_be_editable_by_associated_project_managers
+      should_be_editable_by_all_managers
       should_not_be_editable_by_employees
     end
     
@@ -74,7 +74,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_allow_admin_crud
       should_allow_everyone_to_view
       should_only_be_destructable_by_admins
-      should_only_be_editable_by_associated_project_managers
+      should_be_editable_by_all_managers
       should_not_be_editable_by_employees
 
     end
@@ -89,7 +89,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_allow_admin_crud
       should_allow_everyone_to_view
       should_only_be_destructable_by_admins
-      should_only_be_editable_by_associated_project_managers
+      should_be_editable_by_all_managers
       should_not_be_editable_by_employees
       
     end

@@ -59,10 +59,19 @@ class ActiveSupport::TestCase
   end
   
   def self.should_only_be_editable_by_associated_project_managers
-    should_eventually "be editable by a manager who manages a project for the associated business" do
+    should "be editable by a manager who manages a project for the associated business" do
+      assert @owning_manager.can_update?(subject)
     end
     should "not be editable by managers who aren't managing any projects for the buisness" do
       assert ! @extra_manager.can_update?(subject)
+    end
+  end
+  
+  def self.should_be_editable_by_all_managers
+    should "be editable by all managers" do
+      [@owning_manager, @extra_manager].each do |user|
+        assert user.can_update?(subject)
+      end
     end
   end
   
