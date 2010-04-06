@@ -54,7 +54,9 @@ class ProjectsController < ApplicationController
   # POST /projects.xml
   def create
     @project = Project.new(params[:project])
-
+    @businesses = Business.find(:all)
+	@users = User.find(:all)
+	
     respond_to do |format|
       if @project.save
         flash[:notice] = 'Project was successfully created.'
