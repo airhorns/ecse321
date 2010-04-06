@@ -53,6 +53,24 @@ module Canable
         true
       end
       
+      # ProjectCost permissions for Employees
+      # view: only those reported by themselves
+      # update: only those reported by themselves
+      # destroy: never
+      # create: never
+      def can_view_project_cost?(project_cost)
+        project_cost.user == self
+      end
+
+      # ProjectCost permissions for Employees
+      # view: only those reported by themselves
+      # update: only those reported by themselves
+      # destroy: never
+      # create: never
+      def can_update_project_cost?(project_cost)
+        project_cost.user == self
+      end
+
     end
   
     module ManagerRole

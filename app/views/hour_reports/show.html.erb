@@ -10,17 +10,22 @@
 
 <p>
   <b>User:</b>
-  <%=h @hour_report.user_id %>
+  <%=h @hour_report.user%>
 </p>
 
 <p>
   <b>Task:</b>
-  <%=h @hour_report.task_id %>
+  <%=h @hour_report.task %>
 </p>
 
 <p>
   <b>Hours:</b>
   <%=h @hour_report.hours %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%=h @hour_report.cost_to_s %>
 </p>
 
 <p>
@@ -30,7 +35,7 @@
 
 <p>
   <b>State:</b>
-  <%=h @hour_report.get_state %>
+  <%=h @hour_report.state_to_s %>
 </p>
 
 

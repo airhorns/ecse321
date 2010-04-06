@@ -1,3 +1,5 @@
+# ProjectCostsController manages the {ProjectCost} objects by providing a RESTful HTML interface. 
+# @author Shen Chen Xu
 class ProjectCostsController < ApplicationController
   # GET /project_costs
   # GET /project_costs.xml

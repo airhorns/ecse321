@@ -1,17 +1,27 @@
+# A +ProjectCost+ represent the notion of any cost related to a project.
+# @author Shen Chen Xu
 class ProjectCost < ActiveRecord::Base
   include Canable::Ables
 	
-  validates_presence_of :name, :description, :task_id
+  validates_presence_of :name, :description, :user_id, :task_id
   belongs_to :user
   belongs_to :task
-  belongs_to :project
 
-  def get_state
+  Pending = 0
+  Approved = 1
+  Rejected = 2
+
+  def state_to_s
     case self.state
-    when 0 then 'Pending'
-    when 1 then 'Approved'
-    when 2 then 'Rejected'
-    else 'Undefined'
+      when Pending then 'Pending'
+      when Approved then 'Approved'
+      when Rejected then 'Rejected'
+      else 'Undefined'
     end
   end
+
+  def cost_to_s
+    sprintf( "$%.2f", self.get_cost )
+  end
+
 end

@@ -10,17 +10,17 @@
 
 <p>
   <b>User:</b>
-  <%=h @expense.user_id %>
+  <%=h @expense.user %>
 </p>
 
 <p>
   <b>Task:</b>
-  <%=h @expense.task_id %>
+  <%=h @expense.task %>
 </p>
 
 <p>
   <b>Cost:</b>
-  <%=h @expense.cost %>
+  <%=h @expense.cost_to_s %>
 </p>
 
 <p>
@@ -30,7 +30,7 @@
 
 <p>
   <b>State:</b>
-  <%=h @expense.get_state %>
+  <%=h @expense.state_to_s %>
 </p>
 
 
