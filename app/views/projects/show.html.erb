@@ -1,3 +1,39 @@
+<p>
+  <b>Name:</b>
+  <%=h @project.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @project.notes %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%=h @project.user %>
+</p>
+
+<% if (@project.tasks.size > 0) then %>
+<p>
+  <b>Tasks:</b>
+  <ul>
+  <% @project.tasks.each do |task| %>
+  	<li><%= link_to task.name, task %></li>
+  <% end %>
+  </ul>
+</p>
+<% else %>
+<p>
+  <b>Tasks:</b>
+  There are no tasks in this project.
+</p>
+<% end %>
+
+
+<p>
+  <b>Created:</b>
+  <%=h @project.created_at %>
+</p>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
