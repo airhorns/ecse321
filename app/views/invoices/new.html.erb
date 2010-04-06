@@ -4,20 +4,18 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :project %><br />
-    <%= f.text_field :project %>
+    <= f.label :project %><br />
+    <= f.text_field :project %>
   </p>
   
   <p>
     <%= f.label :project %><br /> 
-	<%= collection_select(:post, :author_id, Project.all, :id, :invoice_name, {:prompt => true}) %>
+	<%= f.collection_select :project_id, Project.all, :id, :to_s, {:prompt => true} %>
+	<= f.collection_select :task_id, Task.all, :id, :full_name %>
+
 
   </p>
-  
-  <p>
-    <%= f.label :client %><br />
-    <%= f.text_field :client %>
-  </p>
+
   <p>
     <%= f.label :start_date %><br />
     <%= f.date_select :start_date %>
