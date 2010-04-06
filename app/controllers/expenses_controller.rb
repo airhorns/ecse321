@@ -1,3 +1,5 @@
+# ExpensesController manages the {Expense} objects by providing a RESTful HTML interface. 
+# @author Shen Chen Xu
 class ExpensesController < ApplicationController
   before_filter :require_user
   
@@ -27,10 +29,6 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @expense = Expense.new
-    @tasks = Task.find(:all)
-    @users = User.find(:all)
-    
-    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,8 +39,6 @@ class ExpensesController < ApplicationController
   # GET /expenses/1/edit
   def edit
     @expense = Expense.find(params[:id])
-    @tasks = Task.find(:all)
-    @users = User.find(:all)
     
   end
 
@@ -50,7 +46,8 @@ class ExpensesController < ApplicationController
   # POST /expenses.xml
   def create
     @expense = Expense.new(params[:expense])
-		@expense.state = 0		# initial state 'Pending'
+		@expense.state = Expense::Pending
+    @expense.user_id = current_user.id
 
     respond_to do |format|
       if @expense.save
@@ -68,8 +65,10 @@ class ExpensesController < ApplicationController
   # PUT /expenses/1.xml
   def update
     @expense = Expense.find(params[:id])
-		@expense.state = 0   # reset state to 'Pending' once the expense is edited
+		@expense.state = Expense::Pending
 
+    puts "llllllllllllloooooooooooooooolllllllllllllllll"
+    puts @users.inspect
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         flash[:notice] = 'Expense was successfully updated.'
@@ -97,7 +96,7 @@ class ExpensesController < ApplicationController
 
   def approve
     @expense = Expense.find(params[:id])
-    @expense.state = 1
+		@expense.state = Expense::Approved
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
@@ -113,7 +112,7 @@ class ExpensesController < ApplicationController
 
   def reject
     @expense = Expense.find(params[:id])
-    @expense.state = 2
+		@expense.state = Expense::Rejected
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])

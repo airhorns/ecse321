@@ -4,7 +4,7 @@ class Task < ActiveRecord::Base
   has_many :project_costs
   belongs_to :project
   
-  validates_presence_of :name, :project_id
+  validates_presence_of :name, :project_id, :user_id, :description
   
   def full_name
     self.name + ' - ' + self.project.name
