@@ -5,8 +5,24 @@ class HourReportsController < ApplicationController
   
   # GET /hour_reports
   # GET /hour_reports.xml
-  def index
-    @hour_reports = HourReport.all
+  def index 
+    if params[:all]
+      @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id })
+    else
+      @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+    end
+    @hour_report = HourReport.new
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @hour_reports }
+    end
+  end
+
+  # GET /hour_reports
+  # GET /hour_reports.xml
+  def all
+    @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id })
 
     respond_to do |format|
       format.html # index.html.erb
@@ -77,8 +93,10 @@ class HourReportsController < ApplicationController
   # PUT /hour_reports/1.xml
   def update
     @hour_report = HourReport.find(params[:id])
-    @hour_report.state = 0          # reset state to 'Pending' after editing
+    @hour_report.state = HourReport::Pending
+
     enforce_update_permission(@hour_report)
+    
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully updated.'
@@ -96,6 +114,7 @@ class HourReportsController < ApplicationController
   def destroy
     @hour_report = HourReport.find(params[:id])
     @hour_report.destroy
+    enforce_destroy_permission(@hour_report)
 
     respond_to do |format|
       format.html { redirect_to(hour_reports_url) }
@@ -105,7 +124,12 @@ class HourReportsController < ApplicationController
 
   def approve
     @hour_report = HourReport.find(params[:id])
+<<<<<<< HEAD:app/controllers/hour_reports_controller.rb
+    @hour_report.state = HourReport::Approved
+=======
     @hour_report.state = 1
+    enforce_approve_permission(@hour_report)
+>>>>>>> 0fc4aed2cdb98c577b47cfe64ba6a3ac60605b85:app/controllers/hour_reports_controller.rb
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -121,7 +145,12 @@ class HourReportsController < ApplicationController
 
   def reject
     @hour_report = HourReport.find(params[:id])
+<<<<<<< HEAD:app/controllers/hour_reports_controller.rb
+    @hour_report.state = HourReport::Rejected
+=======
     @hour_report.state = 2
+    enforce_reject_permission(@hour_report)
+>>>>>>> 0fc4aed2cdb98c577b47cfe64ba6a3ac60605b85:app/controllers/hour_reports_controller.rb
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])

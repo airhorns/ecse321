@@ -6,7 +6,12 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.xml
   def index
-    @expenses = Expense.all
+    if params[:all]
+      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id })
+    else
+      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+    end
+    @expense = Expense.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,7 +54,7 @@ class ExpensesController < ApplicationController
   # POST /expenses.xml
   def create
     @expense = Expense.new(params[:expense])
-		@expense.state = Expense::Pending
+    @expense.state = Expense::Pending
     @expense.user_id = current_user.id
     enforce_create_permission(@expense)
     
