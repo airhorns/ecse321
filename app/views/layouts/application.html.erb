@@ -54,7 +54,8 @@
 						projects.add "New Task", new_task_path, :class => "ss_sprite ss_application_form_add" if can_create?(Task.new)
 					  end
 										  
-					  root.add "Invoices", "#", :class => "ss_sprite ss_page"
+					  root.add "Invoices", invoices_path, :class => "ss_sprite ss_page"
+					  
 					
 					  root.add "Contacts", contacts_path, :class => "ss_sprite ss_group" do |contacts|
 						contacts.add "Add Contact", new_contact_path, :class => "ss_sprite ss_group_add" if can_create?(Contact.new)

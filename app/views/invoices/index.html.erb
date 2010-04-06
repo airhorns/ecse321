@@ -44,7 +44,7 @@
     <td><%=h expense.task_id %></td>
     <td><%=h expense.cost %></td>
     <td><%=h expense.date %></td>
-    <td><%=h expense.get_state %></td>
+    <td><%=h expense.state_to_s %></td>
     <td><%= link_to 'Show', expense %></td>
     <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
     <td><%= link_to 'Destroy', expense, :confirm => 'Are you sure?', :method => :delete %></td>

@@ -25,3 +25,16 @@ User.create!(:email=>"joe@example.com",
 :password => "apple123", 
 :password_confirmation => "apple123", 
 :role => "employee")
+
+Business.create!(:name=>"First business",
+:website=>"lalala.com",
+:telephone=> 4445556666,
+:fax=>1112223333,
+:email=>"cool@t.com",
+:notes=>"et voila!" )
+
+Project.create!(:name=>"Treezers",
+:notes=>"we make nice green trees",
+:due_date=>"2010-04-06 00:00:00 UTC"
+:user_id=>1,
+:business_id=>1)
