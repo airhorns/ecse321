@@ -1,4 +1,6 @@
 class HourReportsController < ApplicationController
+  before_filter :require_user
+  
   # GET /hour_reports
   # GET /hour_reports.xml
   def index

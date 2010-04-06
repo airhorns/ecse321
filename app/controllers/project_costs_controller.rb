@@ -1,4 +1,7 @@
 class ProjectCostsController < ApplicationController
+  before_filter :require_user
+  
+
   # GET /project_costs
   # GET /project_costs.xml
   def index

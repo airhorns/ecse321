@@ -11,3 +11,21 @@ ul#menu li {
 ul#menu ul {
 	padding: 2px 0px 0px 15px;
 }
+/* Reset Blueprint's consecutive paragraph indent since we aren't doing blocks of text */
+p + p {
+	text-indent: 0px;
+}
+
+form p {
+	margin-bottom: 0px;
+}
+form p + p {
+	margin-top: 0px;
+}
+
+.red {
+	color: #F00;
+}
+.red input {
+	border-color: #F00;
+}

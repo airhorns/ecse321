@@ -1,6 +1,7 @@
 # BusinessesController manages the {Business} objects by providing a RESTful HTML interface. 
 # @author Harry Brundage
 class BusinessesController < ApplicationController
+  before_filter :require_user
   
   # Renders the index action, listing all the +Business+es. 
   # Route: GET /businesses
@@ -16,10 +17,10 @@ class BusinessesController < ApplicationController
   # Route: GET /businesses/1
   def show
     @business = Business.find(params[:id])
-    enforce_show_permission(@business)
-
+    enforce_view_permission(@business)
     respond_to do |format|
       format.html # show.html.erb
+      format.js { render :partial => 'details', :locals => {:business => @business}}
     end
   end
 

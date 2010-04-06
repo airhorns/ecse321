@@ -1,4 +1,6 @@
 class ExpensesController < ApplicationController
+  before_filter :require_user
+  
   # GET /expenses
   # GET /expenses.xml
   def index

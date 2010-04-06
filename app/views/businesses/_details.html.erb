@@ -1,0 +1,26 @@
+<h3>
+  <%= business.name %> Details
+</h3>
+<p>
+  <b>Website:</b>
+  <%= link_to business.website, business.website %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= business.telephone %>
+</p>
+
+<p>
+  <b>Fax:</b>
+  <%= business.fax %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= mail_to(business.email) %>
+</p>
+
+<%= link_to 'More details', business_path(business) %> | 
+<%= link_to 'Edit this business', edit_business_path(business) %> | 
+<%= link_to 'Business List', businesses_path %>

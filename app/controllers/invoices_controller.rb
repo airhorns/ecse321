@@ -1,4 +1,6 @@
 class InvoicesController < ApplicationController
+  before_filter :require_user
+  
   # Search for all Expense objects in the database that are associated with the invoice's
   # project and with `date' attribute between the `start_date' and `end_date' attributes of the invoice
   def list_expenses()

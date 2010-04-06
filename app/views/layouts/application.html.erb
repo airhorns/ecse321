@@ -22,16 +22,21 @@
 		<!--- #container start -->
 		<div class="container showgrid">
 			<div id="header" class="span-24 last">
-				<h1>ECSE 321</h1><br />
+				<div class="span-20">
+				<h1>ECSE 321</h1>
+				</div>
+				<div class="span-4 last">
+					<% if !current_user %> 
+						<%= link_to "Log In", new_user_session_path %>
+					<% else %> 
+						<%= link_to "My Account", account_path %> | 
+						<%= link_to "Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %>
+					<% end %>
+				</div>
 			</div>
 			
 			<div class="sidebar span-4">
-				<% if !current_user %> 
-					<%= link_to "Log In", new_user_session_path %>
-				<% else %> 
-					<%= link_to "My Account", account_path %> | 
-					<%= link_to "Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %> 
-					<br/>
+				<% if current_user %> 
 					<% semantic_menu :id => "menu" do |root|
 					  root.add "Dashboard", root_path, :class => "ss_sprite ss_application_view_tile"
 					  
@@ -57,12 +62,13 @@
 						contacts.add "Add Business", new_business_path, :class => "ss_sprite ss_briefcase" if can_create?(Business.new)
 					  end
 					  
-					  root.add "Users", users_path, :class => "ss_sprite ss_user" do |users|
+					  root.add "Users", users_path, :class => "ss_sprite ss_user" do |users| if can_view?(User.new)
 						users.add "Add User", new_account_path, :class => "ss_sprite ss_user_add" if can_create?(User.new)
 					  end
 					  
 					end %>
 				<% end %>
+				&nbsp;
 			</div>
 			<script type="text/javascript">
 				var menu = new DropDownMenu($('menu'));

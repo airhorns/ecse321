@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
   include Canable::Actor
   include Canable::Ables
   default_role Canable::Roles::EmployeeRole
+  
   role_proc Proc.new { |actor|
     actor.role
   }
+  
   acts_as_authentic do |c|
     # for available options see documentation in: Authlogic::ActsAsAuthentic
   end
@@ -20,7 +22,7 @@ class User < ActiveRecord::Base
   end
   
   def full_name
-    self.last_name + ', ' + self.first_name
+    self.first_name + " " + self.last_name
   end
   
   def to_s
