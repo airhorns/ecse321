@@ -56,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   
   map.resource :user_session
-  map.root :controller => "user_sessions", :action => "new" # optional, this just sets the root route
+  map.root :controller => "dashboard", :action => "index" # optional, this just sets the root route
   
   map.resource :account, :controller => "users"
   map.resources :users

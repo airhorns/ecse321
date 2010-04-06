@@ -7,7 +7,7 @@ class BusinessesController < ApplicationController
   # Route: GET /businesses
   def index
     @businesses = Business.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
     end
