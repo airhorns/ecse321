@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
   
   # Search for all Expense objects in the database that are associated with the invoice's
   # project and with `date' attribute between the `start_date' and `end_date' attributes of the invoice
-  def list_expenses()
+  def list_expenses
     #age = params[:age]
 	#person = Person.find(:all, :conditions => "name = '#{name}' and age = '#{age}'")
     #@all_expenses = Expense.all

@@ -5,4 +5,12 @@ class Invoice < ActiveRecord::Base
 		"#{project}"
 	end
 	
+	def total_cost
+		sum = 0
+		self.project.tasks.each do |task|
+		  sum = sum + task.get_cost
+		end
+		return sum
+	end 
+	
 end

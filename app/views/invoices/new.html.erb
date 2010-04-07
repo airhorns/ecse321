@@ -3,17 +3,10 @@
 <% form_for(@invoice) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <= f.label :project %><br />
-    <= f.text_field :project %>
-  </p>
-  
+
   <p>
     <%= f.label :project %><br /> 
 	<%= f.collection_select :project_id, Project.all, :id, :to_s, {:prompt => true} %>
-	<= f.collection_select :task_id, Task.all, :id, :full_name %>
-
-
   </p>
 
   <p>

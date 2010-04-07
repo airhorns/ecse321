@@ -2,7 +2,6 @@
 
 <table>
   <tr>
-    <th>Id</th>
     <th>Project</th>
     <th>Start date</th>
     <th>End date</th>
@@ -10,7 +9,6 @@
 
 <% @invoices.each do |invoice| %>
   <tr>
-    <td><%=h invoice.id %></td>
     <td><%=h invoice.project %></td>
     <td><%=h invoice.start_date %></td>
     <td><%=h invoice.end_date %></td>
@@ -20,60 +18,6 @@
   </tr>
 <% end %>
 </table>
-/////////////////////
-
-
-<h1>Listing expenses</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>User</th>
-    <th>Task</th>
-    <th>Cost</th>
-    <th>Date</th>
-    <th>State</th>
-  </tr>
-
-<% @all_expenses.each do |expense| %>
-  <tr>
-    <td><%=h expense.name %></td>
-    <td><%=h expense.user_id %></td>
-    <td><%=h expense.task_id %></td>
-    <td><%=h expense.cost %></td>
-    <td><%=h expense.date %></td>
-    <td><%=h expense.state_to_s %></td>
-    <td><%= link_to 'Show', expense %></td>
-    <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-    <td><%= link_to 'Destroy', expense, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-////////////////////////////////
-
-<h1>Listing tasks</h1>
-
-<table>
-  <tr>
-	<td>Name</td>
-	<td>Project</td>
-	<td># of Costs</td>
-	<td>Cost</td>
-  </tr>
-
-<% @all_tasks.each do |task| %>
-  <tr>
-	<td><%= task.name %></td>
-	<td><%= task.project %></td>
-	<td><%= task.project_costs.size %></td>
-	<td><%= task.get_cost %></td>
-    <td><%= link_to 'Show', task %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-////////////////////////////////////////
 <br />
 
 <%= link_to 'New invoice', new_invoice_path %>
