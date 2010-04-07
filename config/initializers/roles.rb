@@ -1,5 +1,6 @@
 Canable.add(:approve, :approvable)
 Canable.add(:reject, :rejectable)
+Canable.add(:save, :savable)
 
 module Canable
   module Roles
@@ -56,30 +57,46 @@ module Canable
         true
       end
       
-      # ProjectCost permissions for Employees
-      # view: only those reported by themselves
-      # update: only those reported by themselves
-      # destroy: never
-      # create: never
-      def can_view_hour_report?(project_cost)
+
+      # Project cost
+      def can_view_update_project_cost?(project_cost)
         project_cost.user == self
       end
 
-      # ProjectCost permissions for Employees
-      # view: only those reported by themselves
-      # update: only those reported by themselves
-      # destroy: never
-      # create: never
-      def can_update_project_cost?(project_cost)
-        project_cost.user == self
+      def can_view_hourreport?(hour_report)
+        can_view_update_project_cost?(hour_report)
+      end
+
+      def can_view_expense?(expense)
+        can_view_update_project_cost?(expense)
+      end
+
+      def can_update_hourreport?(hour_report)
+        can_view_update_project_cost?(hour_report)
+      end
+
+      def can_update_expense?(expense)
+        can_view_update_project_cost?(expense)
+      end
+
+      def can_save_project_cost?(project_cost)
+        self.projects.include?(project_cost.task.project)
       end
       
       def can_create_expense?(expense)
-        true
+        self.active
       end
       
-      def can_create_hour_report?(hour_report)
-        true
+      def can_create_hourreport?(hour_report)
+        self.active
+      end
+
+      def can_save_expense?(expense)
+        can_save_project_cost?(expense)
+      end
+
+      def can_save_hourreport?(hour_report)
+        can_save_project_cost?(hour_report)
       end
     
     end

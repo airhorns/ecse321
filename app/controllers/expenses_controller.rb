@@ -10,8 +10,8 @@ class ExpensesController < ApplicationController
       @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id })
     else
       @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+      @expense = Expense.new
     end
-    @expense = Expense.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,7 +56,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.new(params[:expense])
     @expense.state = Expense::Pending
     @expense.user_id = current_user.id
-    enforce_create_permission(@expense)
+    enforce_save_permission(@expense)
     
     respond_to do |format|
       if @expense.save
@@ -75,7 +75,7 @@ class ExpensesController < ApplicationController
   def update
     @expense = Expense.find(params[:id])
 		@expense.state = Expense::Pending
-    enforce_update_permission(@expense)
+    enforce_save_permission(@expense)
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])

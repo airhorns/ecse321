@@ -1,16 +1,20 @@
 <h1>Expenses</h1>
 
+<% if params[:all] %>
+<h2>Expenses</h2>
+<%else%>
 <h2>Recent expenses</h2>
+<%end%>
 <%= render :partial => 'index' %>
 
 
-<% if !params[:all] %>
+<% if params[:all] %>
+<%= link_to 'Back', expenses_path %>
+<%else%>
 <%= link_to 'All expense', expenses_path + "?all=true" %>
 <br><br>
 <h2>New expense</h2>
 <%= render :partial => 'form' %>
-<%else%>
-<%= link_to 'Back', expenses_path %>
 <%end%>
 
 <%#= link_to 'New hour_report', new_hour_report_path %>
