@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
+require "authlogic/test_case"
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
@@ -38,7 +39,6 @@ class ActiveSupport::TestCase
   def self.should_allow_admin_crud
     should "be updatable by admin" do
       assert @admin.can_update?(subject)
-      assert subject.updatable_by?(@admin)
     end
   end
   
@@ -59,10 +59,19 @@ class ActiveSupport::TestCase
   end
   
   def self.should_only_be_editable_by_associated_project_managers
-    should_eventually "be editable by a manager who manages a project for the associated business" do
+    should "be editable by a manager who manages a project for the associated business" do
+      assert @owning_manager.can_update?(subject)
     end
     should "not be editable by managers who aren't managing any projects for the buisness" do
       assert ! @extra_manager.can_update?(subject)
+    end
+  end
+  
+  def self.should_be_editable_by_all_managers
+    should "be editable by all managers" do
+      [@owning_manager, @extra_manager].each do |user|
+        assert user.can_update?(subject)
+      end
     end
   end
   
@@ -71,4 +80,29 @@ class ActiveSupport::TestCase
       assert ! @user.can_update?(subject)
     end
   end
+  
+  def self.should_not_allow_any_actions
+    should "not permit access to the index action" do
+      get :index
+      assert_redirected_to(new_user_session_path)
+    end
+    should "not permit access to the new action" do
+      get :new
+      assert_redirected_to(new_user_session_path)
+    end
+    
+    should "not permit access to the edit action" do
+      get :edit, :id => Factory(:expense).id
+      assert_redirected_to(new_user_session_path)
+    end
+    
+    should "not permit access to the update action" do
+      put :update, :id => Factory(:expense).id
+      assert_redirected_to(new_user_session_path)
+    end
+    should "not permit access to the destroy action" do
+      delete :destroy, :id => Factory(:expense).id
+      assert_redirected_to(new_user_session_path)
+    end
+  end  
 end

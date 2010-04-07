@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PermissionsTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  context "Some users with various permissions" do
+  context "Users with various permissions" do
     setup do
       @user = Factory.create(:user)
       @owning_manager = Factory.create(:manager) # manages the projects
@@ -61,7 +61,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_allow_admin_crud
       should_allow_everyone_to_view
       should_only_be_destructable_by_admins
-      should_only_be_editable_by_associated_project_managers
+      should_be_editable_by_all_managers
       should_not_be_editable_by_employees
     end
     
@@ -74,7 +74,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_allow_admin_crud
       should_allow_everyone_to_view
       should_only_be_destructable_by_admins
-      should_only_be_editable_by_associated_project_managers
+      should_be_editable_by_all_managers
       should_not_be_editable_by_employees
 
     end
@@ -89,7 +89,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_allow_admin_crud
       should_allow_everyone_to_view
       should_only_be_destructable_by_admins
-      should_only_be_editable_by_associated_project_managers
+      should_be_editable_by_all_managers
       should_not_be_editable_by_employees
       
     end
@@ -108,5 +108,35 @@ class PermissionsTest < ActiveSupport::TestCase
       
     end
     
+    context "and a project resource, the project resource" do
+      setup do
+        @project = Factory.create(:project, :user => @owning_manager)
+      end
+      
+      should "not be updatable by a non owning manager" do
+        assert ! @project.updatable_by?(@extra_manager)
+        assert ! @extra_manager.can_update?(@project)
+      end
+      
+      should "be updatable by the project manager" do
+        assert @project.updatable_by?(@owning_manager)
+        assert @owning_manager.can_update?(@project)
+      end
+      
+      should "be editable by an admin" do
+        assert @admin.can_update?(@project)
+      end
+      
+      should "not be editable by a user" do
+        assert ! @user.can_update?(@project)
+      end
+      
+      should "not be destructable by anyone except an administrator" do
+        @not_admins.each do |user|
+          assert ! user.can_destroy?(@project)
+        end
+        assert @admin.can_destroy?(@project)
+      end
+    end
   end
 end

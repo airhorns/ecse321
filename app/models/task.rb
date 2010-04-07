@@ -15,11 +15,7 @@ class Task < ActiveRecord::Base
   end
   
   def get_cost
-    sum = 0
-    self.project_costs.each do |c|
-      sum = sum + c.get_cost
-    end
-    return sum
+    self.project_costs.inject(0) { |sum, cost| sum += cost.get_cost }
   end
   
 end

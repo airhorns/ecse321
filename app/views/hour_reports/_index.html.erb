@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th>Project</th>
+    <th>Task</th>
+    <th>Hours</th>
+    <th>Cost</th>
+    <th>Date</th>
+    <th>State</th>
+  </tr>
+
+<% @hour_reports.each do |hour_report| %>
+  <tr>
+    <td><%=h hour_report.task.project %></td>
+    <td><%=h hour_report.task %></td>
+    <td><%=h hour_report.hours %></td>
+    <td><%=h hour_report.cost_to_s %></td>
+    <td><%=h hour_report.date %></td>
+    <td><%=h hour_report.state_to_s %></td>
+    <td><%= link_to 'Show', hour_report %> |
+    <%= link_to 'Edit', edit_hour_report_path(hour_report) %> |
+    <%= link_to 'Destroy', hour_report, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%#= link_to 'New hour_report', new_hour_report_path %>
