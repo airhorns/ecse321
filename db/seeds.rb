@@ -103,21 +103,24 @@ Task.create!([{:name => "Layout", :description => "Visual themeing and graphic d
 
 @employees.each do |user|
   [@project1, @project2].each do |project|
-    rand(6).times do 
+    (rand(5) + 3).times do 
       Expense.create!(:name => "Dinner with client.", 
                       :description => "An important meal where important things were discussed.",
+                      :date => Time.now - rand(5).days - rand(1000).minutes,
                       :user => user,
                       :cost => rand(10000)/2, 
-                      :task => project.tasks[rand(project.tasks.length-1)]
+                      :task => project.tasks[rand(project.tasks.length-1)],
+                      :state => [Expense::Pending, Expense::Approved, Expense::Rejected][rand(3)]
                     )
     end
-    rand(30).times do 
+    (rand(20) + 10).times do 
       HourReport.create!(:description => "An important meal where important things were discussed.",
                          :date => Time.now - rand(5).days - rand(1000).minutes,
                          :hours => rand(10)+1,
                          :user => user,
                          :cost => rand(10000)/2, 
-                         :task => project.tasks[rand(project.tasks.length-1)]
+                         :task => project.tasks[rand(project.tasks.length-1)],
+                         :state => [HourReport::Pending, HourReport::Approved, HourReport::Rejected][rand(3)]
                         )
     end
   end

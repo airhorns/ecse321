@@ -4,6 +4,8 @@
 <h2>Expenses</h2>
 <%else%>
 <h2>Recent expenses</h2>
+<%= link_to 'Show pending', hour_reports_path + "?pending=true" %>
+<%= link_to 'Show rejected', hour_reports_path + "?rejected=true" %>
 <%end%>
 <%= render :partial => 'index' %>
 
