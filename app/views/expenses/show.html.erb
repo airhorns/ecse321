@@ -42,7 +42,7 @@
 
 <% if can_update?(@expense) %>
 <p>
-<%= link_to 'Edit', edit_expense_path(@expense) %>
+<%= link_to 'Edit', edit_expense_path(@expense) %> |
 <% end %>
-| <%= link_to 'Back', expenses_path %>
+<%= link_to 'Back', expenses_path %>
 </p>
