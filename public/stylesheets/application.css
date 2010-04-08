@@ -19,7 +19,8 @@ body {
 	-webkit-border-bottom-left-radius: 15px;
 	-moz-border-radius-bottomright: 15px;
 	-webkit-border-bottom-right-radius: 15px;
-	color: #fff; 	
+	color: #fff; 
+	margin-bottom: 10px;	
 }
 #header h1{
 	color: #fff;
