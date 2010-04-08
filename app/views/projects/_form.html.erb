@@ -25,7 +25,7 @@
   </p>
 
 	<p><b>Users:</b>
-   <% for user in User.find(:all) %>  
+   <% for user in @users %>  
       <div>  
         <%= check_box_tag "project[user_ids][]", user.id, @project.users.include?(user) %>  
         <%= user.full_name %>  

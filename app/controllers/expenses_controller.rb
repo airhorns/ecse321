@@ -6,19 +6,21 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.xml
   def index
+    state_condition = [Expense::Pending, Expense::Rejected]
     if params[:all]
-      @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id })
+      state_condition = false
     else
       if params[:pending]
-        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => Expense::Pending })
+        state_condition = Expense::Pending
       elsif params[:rejected]
-        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => Expense::Rejected })
-      else
-        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+        state_condition = Expense::Rejected
       end
       @expense = Expense.new
     end
-
+    conditions = {:user_id => current_user.id}
+    conditions[:state] = state_condition if state_condition
+    @expenses = Expense.find(:all, :order => "date DESC", :conditions => conditions)
+  
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @expenses }
@@ -41,7 +43,6 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @expense = Expense.new
-    enforce_create_permission(@expense)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,7 +54,6 @@ class ExpensesController < ApplicationController
   def edit
     @expense = Expense.find(params[:id])
     enforce_update_permission(@expense)
-    
   end
 
   # POST /expenses
@@ -62,7 +62,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.new(params[:expense])
     @expense.state = Expense::Pending
     @expense.user_id = current_user.id
-    enforce_save_permission(@expense)
+    enforce_create_permission(@expense)
     
     respond_to do |format|
       if @expense.save

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-
+  before_filter :find_users_and_businesses, :only => [:new, :create, :edit, :update]
   # GET /projects
   # GET /projects.xml
   def index
@@ -27,10 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
-    @users = User.find(:all)
-    @businesses = Business.find(:all)
   	
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project }
@@ -39,10 +36,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
-    @users = User.find(:all)
-    @businesses = Business.find(:all)
-    
+    @project = Project.find(params[:id])    
     
   end
 
@@ -50,8 +44,6 @@ class ProjectsController < ApplicationController
   # POST /projects.xml
   def create
     @project = Project.new(params[:project])
-    @businesses = Business.find(:all)
-	@users = User.find(:all)
 	
     respond_to do |format|
       if @project.save
@@ -92,5 +84,11 @@ class ProjectsController < ApplicationController
       format.html { redirect_to(projects_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  def find_users_and_businesses
+    @businesses = Business.find(:all)
+	  @users = User.find(:all)
   end
 end

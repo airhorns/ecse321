@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
   validates_presence_of :active, :first_name, :last_name, :hourly_rate, :telephone, :role
   
   def after_initialize
-    self.role = :employee unless self.role
+    if @attributes['role'].blank?
+      @attributes['role'] = :employee
+    end
   end
   
   def full_name
