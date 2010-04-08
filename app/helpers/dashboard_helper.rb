@@ -18,7 +18,7 @@ module DashboardHelper
 				'An expense for ' + link_to( object.name, object ) + ' has been added to ' + link_to( object.task.name, object.task ) + '.'
 			
 			when 'HourReport'
-				'Hours for ' + link_to( object.name, object ) + ' have been added to ' + link_to( object.task.name, object.task ) + '.'
+				link_to( 'Hours', object ) + ' have been added to ' + link_to( object.task.name, object.task ) + '.'
 				
 			when 'Task'
 				'Task ' + link_to(object.name, object) + ' has been added to ' + link_to( object.project.name, object.project) + '.'
