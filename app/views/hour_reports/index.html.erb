@@ -4,6 +4,8 @@
 <h2>Hour reports</h2>
 <%else%>
 <h2>Recent hour reports</h2>
+<%= link_to 'Show pending', hour_reports_path + "?pending=true" %>
+<%= link_to 'Show rejected', hour_reports_path + "?rejected=true" %>
 <%end%>
 <%= render :partial => 'index' %>
 
@@ -11,7 +13,7 @@
 <% if params[:all] %>
 <%= link_to 'Back', hour_reports_path %>
 <%else%>
-<%= link_to 'All hour reports', hour_reports_path + "?all=true" %>
+<%= link_to 'Show all', hour_reports_path + "?all=true" %>
 <br><br>
 <h2>New hour report</h2>
 <%= render :partial => 'form' %>

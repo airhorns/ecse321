@@ -59,24 +59,28 @@ module Canable
       
 
       # Project cost
-      def can_view_update_project_cost?(project_cost)
+      def can_update_project_cost?(project_cost)
         project_cost.user == self
       end
 
+      def can_view_project_cost?(project_cost)
+        can_update_project_cost?(project_cost) || can_approve_project_cost?(project_cost)
+      end
+
       def can_view_hourreport?(hour_report)
-        can_view_update_project_cost?(hour_report)
+        can_view_project_cost?(hour_report)
       end
 
       def can_view_expense?(expense)
-        can_view_update_project_cost?(expense)
+        can_view_project_cost?(expense)
       end
 
       def can_update_hourreport?(hour_report)
-        can_view_update_project_cost?(hour_report)
+        can_update_project_cost?(hour_report)
       end
 
       def can_update_expense?(expense)
-        can_view_update_project_cost?(expense)
+        can_update_project_cost?(expense)
       end
 
       def can_save_project_cost?(project_cost)
@@ -121,7 +125,7 @@ module Canable
       
       # Project Costs
       def can_approve_project_cost?(project_cost)
-        project_cost.project.user == self
+        project_cost.task.project.user == self
       end
       
       def can_reject_project_cost?(project_cost)
@@ -136,11 +140,11 @@ module Canable
         can_approve_project_cost?(project_cost)
       end
       
-      def can_approve_hour_report?(project_cost)
+      def can_approve_hourreport?(project_cost)
         can_approve_project_cost?(project_cost)
       end
       
-      def can_reject_hour_report?(project_cost)
+      def can_reject_hourreport?(project_cost)
         can_approve_project_cost?(project_cost)
       end
       

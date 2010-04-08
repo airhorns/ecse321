@@ -7,9 +7,15 @@ class ExpensesController < ApplicationController
   # GET /expenses.xml
   def index
     if params[:all]
-      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id })
+      @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id })
     else
-      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+      if params[:pending]
+        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => Expense::Pending })
+      elsif params[:rejected]
+        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => Expense::Rejected })
+      else
+        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+      end
       @expense = Expense.new
     end
 
@@ -106,6 +112,7 @@ class ExpensesController < ApplicationController
 
   def approve
     @expense = Expense.find(params[:id])
+    enforce_approve_permission(@expense)
 		@expense.state = Expense::Approved
 
     respond_to do |format|
@@ -122,6 +129,7 @@ class ExpensesController < ApplicationController
 
   def reject
     @expense = Expense.find(params[:id])
+    enforce_reject_permission(@expense)
 		@expense.state = Expense::Rejected
 
     respond_to do |format|
