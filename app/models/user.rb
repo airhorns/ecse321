@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates_presence_of :active, :first_name, :last_name, :hourly_rate, :telephone, :role
   
   def after_initialize
-    self.role ||= :employee
+    @role ||= :employee
   end
   
   def full_name
