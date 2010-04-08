@@ -27,7 +27,7 @@ class ProjectCost < ActiveRecord::Base
   end
 
   def project
-    self.task.project
+    self.task.project if self.task
   end
   
 end

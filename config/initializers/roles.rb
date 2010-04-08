@@ -1,20 +1,42 @@
 Canable.add(:approve, :approvable)
 Canable.add(:reject, :rejectable)
 
+module ECSE321
+  module PermissionHelpers
+    def is_owner?(resource)
+      if resource.respond_to?(:user)
+        self == resource.user
+      else 
+        false
+      end
+    end
+    
+    def is_project_manager?(project)
+      if project
+        project.manager == self
+      else
+        false
+      end
+    end
+    
+    def is_part_of_project?(project)
+      is_project_manager?(project) || self.projects.include?(project)
+    end
+      
+    def reported_cost_or_manager_of_parent_project?(project_cost)
+      is_owner?(project_cost) || is_project_manager?(project_cost.project)
+    end
+    
+  end
+end
+
 module Canable
   module Roles
     
     module EmployeeRole
       include Canable::Role
+      include ECSE321::PermissionHelpers
       default_response false
-    
-      def is_owner?(resource)
-        if resource.respond_to?(:user)
-          self == resource.user
-        else 
-          false
-        end
-      end
       
       # User permissions for Employees
       # view: always
@@ -65,11 +87,7 @@ module Canable
       # update: none
       # destroy: never
       # create: always
-      def is_part_of_project?(project)
-        is_project_manager?(project) || self.projects.include?(project)
-      end
-      
-      
+
       def can_view_project?(project)
         is_part_of_project?(project)
       end
@@ -89,7 +107,7 @@ module Canable
       end
       
       def can_create_project_cost?(project_cost)
-        is_part_of_project?(project)
+        is_part_of_project?(project_cost.project)
       end
       
       # Hour Report permissions for Employees
@@ -98,39 +116,25 @@ module Canable
       # destroy: never
       # create: only for projects the employee is associated with
       
-      def can_view_hourreport?(hour_report)
-        can_view_project_cost?(hour_report)
-      end
-      
-      def can_update_hourreport?(hour_report)
-        can_update_project_cost?(hour_report)
-      end
-      
-      def can_create_hourreport?(hour_report)
-        can_create_project_cost?(hour_report)
-      end
-      
       # Hour Report permissions for Employees
       # view: only those reported by themselves
       # update: only those reported by themselves
       # destroy: never
       # create: only for projects the employee is associated with
       
-      def can_view_expense?(expense)
-        can_view_project_cost?(expense)
+      ['expense', 'hourreport'].each do |able|
+        ['view', 'update', 'create'].each do |can|
+          define_method("can_#{can}_#{able}?".intern) do |project_cost|
+            self.send("can_#{can}_project_cost?", project_cost)
+          end
+        end
       end
       
-      def can_update_expense?(expense)
-        can_update_project_cost?(expense)
-      end
-            
-      def can_create_expense?(expense)
-        can_create_project_cost?(expense)
-      end
     end
   
     module ManagerRole
       include Canable::Role
+      include ECSE321::PermissionHelpers
       include EmployeeRole
       
       
@@ -168,10 +172,6 @@ module Canable
       # destroy: never
       # create: never
       
-      def is_project_manager?(project)
-        project.manager == self
-      end
-      
       def can_view_project?(project)
         is_part_of_project?(project)
       end
@@ -191,11 +191,11 @@ module Canable
       end
       
       def can_create_task?(task)
-        is_project_manager?(project)
+        is_project_manager?(task.project)
       end
       
       def can_update_task?(task)
-        is_project_manager?(project)
+        is_project_manager?(task.project)
       end
       
       # ProjectCost permissions for Managers
@@ -207,10 +207,6 @@ module Canable
       # create: only costs belonging to tasks only tasks belonging to a project the manager is associated with or managing
       # approve: only costs belonging to tasks only tasks belonging to a project the manager is managing
       # reject: only costs belonging to tasks only tasks belonging to a project the manager is managing
-      
-      def reported_cost_or_manager_of_parent_project?(project_cost)
-        is_owner?(project_cost) || is_project_manager?(project_cost.project)
-      end
       
       def can_view_project_cost?(project_cost)
         reported_cost_or_manager_of_parent_project?(project_cost)
@@ -225,7 +221,7 @@ module Canable
       end
       
       def can_create_project_cost?(project_cost)
-        is_part_of_project?(project.project_cost)
+        is_part_of_project?(project_cost.project)
       end
       
       def can_approve_project_cost?(project_cost)

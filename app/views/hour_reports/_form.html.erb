@@ -3,7 +3,7 @@
 
 <p>
   Task:<br />
-  <%= f.collection_select :task_id, current_user.projects.inject([]) { |array, project| array.concat(project.tasks )}, :id, :full_name %>
+  <%= f.collection_select :task_id, @available_tasks, :id, :full_name %>
 </p>
 
 <p>
@@ -27,7 +27,7 @@
 </p>
 
 <p>
-  <% if @hour_report.user_id then label = 'Update' else label = 'Create' end%>
+  <% unless @hour_report.new_record? then label = 'Update' else label = 'Create' end %>
   <%= f.submit label %>
 </p>
 <% end %>

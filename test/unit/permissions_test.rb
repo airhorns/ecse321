@@ -22,6 +22,19 @@ class PermissionsTest < ActiveSupport::TestCase
       assert_equal Canable::Roles::AdminRole, @admin.canable_included_role
     end
     
+    should "be able to operate on new objects" do
+      assert_nothing_raised(Exception) do
+        @all_users.each do |user|
+          [Address.new, Business.new, Contact.new, Expense.new, HourReport.new, Project.new, Task.new, Invoice.new, User.new].each do |resource|
+            user.can_view?(resource)
+            user.can_update?(resource)
+            user.can_destroy?(resource)
+            user.can_create?(resource)
+          end
+        end
+      end
+    end
+    
     context "and a user resource, the user resource (profile)" do
       setup do
         @new_user = Factory.create(:new_user)
@@ -93,7 +106,7 @@ class PermissionsTest < ActiveSupport::TestCase
       should_be_editable_by_all_managers
       should_not_be_editable_by_employees
       
-    end    
+    end
     context "and a project resource, the project resource" do
       setup do
         @project = Factory.create(:project, :user => @owning_manager)
@@ -115,7 +128,7 @@ class PermissionsTest < ActiveSupport::TestCase
         end
         subject { @task1 }
         
-        context "and an expense resource, the expense resource" do
+        context "and an valid expense resource, the expense resource" do
           setup do
             @expense = Factory.create(:expense, :task => @task1, :user => @owning_user)
           end

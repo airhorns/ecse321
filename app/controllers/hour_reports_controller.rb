@@ -2,14 +2,21 @@
 # @author Shen Chen Xu
 class HourReportsController < ApplicationController
   before_filter :require_user
-  
+  before_filter :fetch_available_tasks, :only => [:index, :new, :create, :edit, :update]
   # GET /hour_reports
   # GET /hour_reports.xml
   def index 
     if params[:all]
       @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id })
     else
-      @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+      if params[:pending]
+        @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => HourReport::Pending })
+      elsif params[:rejected]
+        @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => HourReport::Rejected })
+      else
+        @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+      end
+      @hour_report = HourReport.new
     end
 
     respond_to do |format|
@@ -45,12 +52,11 @@ class HourReportsController < ApplicationController
   # GET /hour_reports/new.xml
   def new
     @hour_report = HourReport.new
-    enforce_create_permission(@hour_report)
+    @hour_report.user_id = current_user.id
+    @hour_report.task ||= current_user.projects.last.tasks.first if current_user.projects and current_user.projects.last.tasks
     
     @tasks = Task.find(:all)
     @users = User.find(:all)
-    
-    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -64,7 +70,6 @@ class HourReportsController < ApplicationController
     enforce_update_permission(@hour_report)
     @tasks = Task.find(:all)
     @users = User.find(:all)
-    
     
   end
 
@@ -155,5 +160,11 @@ class HourReportsController < ApplicationController
         format.xml  { render :xml => @hour_report.errors, :status => :unprocessable_entity }
       end
     end
+  end
+  
+  private
+  
+  def fetch_available_tasks
+    @available_tasks = current_user.projects.inject([]) { |array, project| array.concat(project.tasks) }
   end
 end
