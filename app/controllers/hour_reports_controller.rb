@@ -124,12 +124,8 @@ class HourReportsController < ApplicationController
 
   def approve
     @hour_report = HourReport.find(params[:id])
-<<<<<<< HEAD:app/controllers/hour_reports_controller.rb
     @hour_report.state = HourReport::Approved
-=======
-    @hour_report.state = 1
     enforce_approve_permission(@hour_report)
->>>>>>> 0fc4aed2cdb98c577b47cfe64ba6a3ac60605b85:app/controllers/hour_reports_controller.rb
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
@@ -145,12 +141,9 @@ class HourReportsController < ApplicationController
 
   def reject
     @hour_report = HourReport.find(params[:id])
-<<<<<<< HEAD:app/controllers/hour_reports_controller.rb
     @hour_report.state = HourReport::Rejected
-=======
     @hour_report.state = 2
     enforce_reject_permission(@hour_report)
->>>>>>> 0fc4aed2cdb98c577b47cfe64ba6a3ac60605b85:app/controllers/hour_reports_controller.rb
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])

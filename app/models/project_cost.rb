@@ -25,4 +25,8 @@ class ProjectCost < ActiveRecord::Base
     sprintf( "$%.2f", self.get_cost )
   end
 
+  def project
+    self.task.project
+  end
+  
 end

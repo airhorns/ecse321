@@ -5,3 +5,4 @@ doc
 db/*.sqlite3
 .yardoc
 *.tmproj
+.rvmrc

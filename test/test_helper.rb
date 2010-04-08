@@ -1,7 +1,28 @@
 ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment") 
+#Override Canable add method
+module Canable
+  private
+    def self.add_can_method(can)
+      Cans.module_eval <<-EOM
+        def can_#{can}?(resource)
+          self.__initialize_canable_role if self.class.include?(Canable::Actor)
+          method = ("can_#{can}_"+resource.class.name.gsub(/::/,"_").downcase+"?").intern
+          if self.respond_to?(method, true)
+            self.send method, resource
+          elsif self.respond_to?(:_canable_default)
+            self._canable_default
+          else
+            false
+          end
+        end
+      EOM
+    end
+end
 require 'test_help'
 require "authlogic/test_case"
+#require File.expand_path(File.dirname(__FILE__) + "/../lib/colored_tests")
+
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
@@ -59,10 +80,10 @@ class ActiveSupport::TestCase
   end
   
   def self.should_only_be_editable_by_associated_project_managers
-    should "be editable by a manager who manages a project for the associated business" do
+    should "be editable by a manager who manages an associated project" do
       assert @owning_manager.can_update?(subject)
     end
-    should "not be editable by managers who aren't managing any projects for the buisness" do
+    should "not be editable by managers who aren't managing the associated project" do
       assert ! @extra_manager.can_update?(subject)
     end
   end
@@ -78,6 +99,35 @@ class ActiveSupport::TestCase
   def self.should_not_be_editable_by_employees
     should "not be editable by employees" do
       assert ! @user.can_update?(subject)
+    end
+  end
+  
+  def self.should_be_approvable_by_project_manager
+    should "be approvable and rejectable by project manager" do
+      assert @owning_manager.can_approve?(subject)
+      assert @owning_manager.can_reject?(subject)
+    end
+    should "not be approvable by managers who aren't managing the associated project" do
+      assert ! @extra_manager.can_approve?(subject)
+      assert ! @extra_manager.can_reject?(subject)
+    end
+  end
+  
+  def self.should_only_be_editable_by_creator_user
+    should "be updatable by user who created it" do
+      assert @owning_user.can_update?(subject)
+    end
+    should "not be updatable by a user who did not create it" do
+      assert ! @extra_user.can_update?(subject)
+    end
+  end
+  
+  def self.should_only_allow_admins_to_destroy
+    should "not be destructable by anyone except an administrator" do
+      @not_admins.each do |user|
+        assert ! user.can_destroy?(subject)
+      end
+      assert @admin.can_destroy?(subject)
     end
   end
   

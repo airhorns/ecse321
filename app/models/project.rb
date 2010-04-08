@@ -18,4 +18,7 @@ class Project < ActiveRecord::Base
     self.name
   end
   
+  def project
+    self.task.project
+  end
 end

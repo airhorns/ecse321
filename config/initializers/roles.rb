@@ -69,9 +69,17 @@ module Canable
       # view: only those reported by themselves
       # update: only those reported by themselves
       # destroy: never
-      # create: never
+      # create: always
       def can_update_project_cost?(project_cost)
         project_cost.user == self
+      end
+      
+      def can_update_expense?(project_cost)
+        can_update_project_cost?(project_cost)
+      end
+      
+      def can_update_hour_report?(project_cost)
+        can_update_project_cost?(project_cost)
       end
       
       def can_create_expense?(expense)
@@ -103,8 +111,12 @@ module Canable
       
       
       # Project Costs
-      def can_approve_project_cost?(project_cost)
+      def can_update_project_cost?(project_cost)
         project_cost.project.user == self
+      end
+      
+      def can_approve_project_cost?(project_cost)
+        can_update_project_cost?(project_cost)
       end
       
       def can_reject_project_cost?(project_cost)
@@ -144,6 +156,11 @@ module Canable
       def can_update_contact?(contact)
         true
       end
+      
+      def can_update_address?(address)
+        true
+      end
+      
       
     end
 
