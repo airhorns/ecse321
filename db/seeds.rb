@@ -114,7 +114,8 @@ Task.create!([{:name => "Layout", :description => "Visual themeing and graphic d
                     )
     end
     (rand(20) + 10).times do 
-      HourReport.create!(:description => "An important meal where important things were discussed.",
+      HourReport.create!(:name	=> 'An important feature',
+												 :description => "An important meal where important things were discussed.",
                          :date => Time.now - rand(5).days - rand(1000).minutes,
                          :hours => rand(10)+1,
                          :user => user,

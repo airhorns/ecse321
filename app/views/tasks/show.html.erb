@@ -1,3 +1,42 @@
+<p>
+  <b>Name:</b>
+  <%=h @task.name %>
+</p>
 
+<p>
+  <b>Description:</b>
+  <%=h @task.description %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= link_to @task.project.name, @task.project %>
+</p>
+
+<% if (@task.project_costs.size > 0) then %>
+<p>
+  <b>Project Costs:</b>
+  <ul>
+  <% @task.project_costs.each do |cost| %>
+  	<li><%= link_to cost.name, cost %> - $<%=h cost.get_cost %></li>
+  <% end %>
+  </ul>
+</p>
+<% else %>
+<p>
+  <b>Project Costs:</b>
+  There are no project costs in this task.
+</p>
+<% end %>
+
+<p>
+	<b>Total Project Cost:</b>
+	<%= @task.get_cost %>
+</p>
+
+<p>
+  <b>Created:</b>
+  <%=h @task.created_at %>
+</p>
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
