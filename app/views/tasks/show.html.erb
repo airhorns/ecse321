@@ -13,26 +13,64 @@
   <%= link_to @task.project.name, @task.project %>
 </p>
 
-<% if (@task.project_costs.size > 0) then %>
-<p>
-  <b>Project Costs:</b>
-  <ul>
-  <% @task.project_costs.each do |cost| %>
-  	<li><%= link_to cost.name, cost %> - $<%=h cost.get_cost %></li>
-  <% end %>
-  </ul>
-</p>
-<% else %>
-<p>
-  <b>Project Costs:</b>
-  There are no project costs in this task.
-</p>
+
+<% hours = [] %>
+<% expenses = []
+  hours.concat( HourReport.find(:all, :conditions => {:task_id => @task.id, :state => HourReport::Pending } ) )
+  expenses.concat( Expense.find(:all, :conditions => {:task_id => @task.id, :state => Expense::Pending } ) ) 
+%>
+
+<% if hours[0] && can_approve?(hours[0]) %>
+  <h3>Pending hour reports</h3>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Hours</th>
+      <th>State</th>
+    </tr>
+<% hours.each do |hour| %>
+  <tr>
+    <td><%=h hour.user %></td>
+    <td><%=h hour.name %></td>
+    <td><%=h hour.date %></td>
+    <td><%=h hour.hours %></td>
+    <td><%=h hour.state_to_s %></td>
+    <td><%= link_to( 'Show', "../hour_reports/" + hour.id.to_s ) %> |
+    <%= link_to( 'Approve', "../hour_reports/approve/" + hour.id.to_s ) %> |
+    <%= link_to( 'Reject', "../hour_reports/reject/" + hour.id.to_s )%></td>
+  </tr>
 <% end %>
 
-<p>
-	<b>Total Project Cost:</b>
-	<%= @task.get_cost %>
-</p>
+</table>
+<% end %>
+
+<% if expenses[0] && can_approve?(expenses[0]) %>
+  <h3>Pending expenses</h3>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Cost</th>
+      <th>State</th>
+    </tr>
+<% expenses.each do |expense| %>
+  <tr>
+    <td><%=h expense.user %></td>
+    <td><%=h expense.name %></td>
+    <td><%=h expense.date %></td>
+    <td><%=h expense.cost_to_s %></td>
+    <td><%=h expense.state_to_s %></td>
+    <td><%= link_to( 'Show', "../expenses/" + expense.id.to_s ) %> |
+    <%= link_to( 'Approve', "../expenses/approve/" + expense.id.to_s ) %> |
+    <%= link_to( 'Reject', "../expenses/reject/" + expense.id.to_s )%></td>
+  </tr>
+<% end %>
+
+</table>
+<% end %>
 
 <p>
   <b>Created:</b>
