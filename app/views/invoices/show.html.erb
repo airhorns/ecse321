@@ -16,7 +16,7 @@
   <ul><% @invoice.project.tasks.each do |task| %>
 	<b><li><%= task.name %> - $<%= task.get_cost %></li></b>
     <ul><% task.project_costs.each do |cost| %>
-	  <li><%= cost.name %> <> $<%= cost.get_cost %> <> <%= cost.date %> <> <%=h cost.type %></li>
+	  <li><b><%= cost.name %></b> - $<%= cost.get_cost %> - <%= cost.date %> - <i><%=h cost.type %></i></li>
 	<% end %></ul>
   <% end %></ul>
 
