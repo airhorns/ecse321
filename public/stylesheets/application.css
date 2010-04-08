@@ -29,3 +29,6 @@ form p + p {
 .red input {
 	border-color: #F00;
 }
+.right {
+	text-align: right;
+}
