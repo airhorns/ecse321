@@ -6,7 +6,7 @@ module DashboardHelper
 				"Business " + link_to( object.to_s, object ) + " was created."
 
 			when 'Invoice'
-				"Invoice " + link_to( '#'+object.id, object ) + " was created for " + link_to( object.business.to_s, object.business ) + "."
+				"Invoice #" + link_to( object.id, object ) + " was created for " + link_to( object.project.to_s, object.project ) + "."
 			
 			when 'Project'
 				"Project " + link_to( object.to_s, object ) + " was created for " + link_to( object.business.to_s, object.business ) + "."
