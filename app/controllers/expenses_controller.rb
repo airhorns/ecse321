@@ -81,6 +81,7 @@ class ExpensesController < ApplicationController
   def update
     @expense = Expense.find(params[:id])
 		@expense.state = Expense::Pending
+    enforce_update_permission(@expense)
     enforce_save_permission(@expense)
     
     respond_to do |format|

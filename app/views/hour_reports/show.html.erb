@@ -47,6 +47,6 @@
 
 
 <% if can_update?(@hour_report) %>
-<%= link_to 'Edit', edit_hour_report_path(@hour_report) %>
+<%= link_to 'Edit', edit_hour_report_path(@hour_report) %> |
 <% end %>
-| <%= link_to 'Back', hour_reports_path %>
+<%= link_to 'Back', hour_reports_path %>

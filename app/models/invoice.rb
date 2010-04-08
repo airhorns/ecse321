@@ -1,4 +1,5 @@
 class Invoice < ActiveRecord::Base
+  validates_presence_of :project_id, :message => "- Please choose a project"
 	belongs_to :project
 	
 	def invoice_name
