@@ -7,11 +7,10 @@ class HourReportsController < ApplicationController
   # GET /hour_reports.xml
   def index 
     if params[:all]
-      @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id })
+      @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id })
     else
       @hour_reports = HourReport.find(:all, :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
     end
-    @hour_report = HourReport.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -130,7 +129,8 @@ class HourReportsController < ApplicationController
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully approved.'
-        format.html { redirect_to(@hour_report) }
+        format.html { redirect_to(:back) }
+        #format.html { redirect_to(@hour_report) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -142,13 +142,13 @@ class HourReportsController < ApplicationController
   def reject
     @hour_report = HourReport.find(params[:id])
     @hour_report.state = HourReport::Rejected
-    @hour_report.state = 2
     enforce_reject_permission(@hour_report)
 
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully rejected.'
-        format.html { redirect_to(@hour_report) }
+        format.html { redirect_to(:back) }
+        #format.html { redirect_to(@hour_report) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

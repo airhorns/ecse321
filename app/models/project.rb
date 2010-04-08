@@ -21,4 +21,8 @@ class Project < ActiveRecord::Base
   def project
     self.task.project
   end
+  
+  def manager
+    self.user
+  end
 end

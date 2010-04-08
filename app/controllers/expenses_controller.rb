@@ -7,11 +7,17 @@ class ExpensesController < ApplicationController
   # GET /expenses.xml
   def index
     if params[:all]
-      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id })
+      @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id })
     else
-      @expenses = Expense.find(:all, :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+      if params[:pending]
+        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => Expense::Pending })
+      elsif params[:rejected]
+        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => Expense::Rejected })
+      else
+        @expenses = Expense.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => [Expense::Pending, Expense::Rejected] })
+      end
+      @expense = Expense.new
     end
-    @expense = Expense.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,7 +62,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.new(params[:expense])
     @expense.state = Expense::Pending
     @expense.user_id = current_user.id
-    enforce_create_permission(@expense)
+    enforce_save_permission(@expense)
     
     respond_to do |format|
       if @expense.save
@@ -76,6 +82,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id])
 		@expense.state = Expense::Pending
     enforce_update_permission(@expense)
+    enforce_save_permission(@expense)
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
@@ -106,12 +113,14 @@ class ExpensesController < ApplicationController
 
   def approve
     @expense = Expense.find(params[:id])
+    enforce_approve_permission(@expense)
 		@expense.state = Expense::Approved
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         flash[:notice] = 'Expense was successfully approved.'
-        format.html { redirect_to(@expense) }
+        format.html { redirect_to(:back) }
+        # format.html { redirect_to(@expense) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -122,12 +131,14 @@ class ExpensesController < ApplicationController
 
   def reject
     @expense = Expense.find(params[:id])
+    enforce_reject_permission(@expense)
 		@expense.state = Expense::Rejected
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         flash[:notice] = 'Expense was successfully rejected.'
-        format.html { redirect_to(@expense) }
+        format.html { redirect_to(:back) }
+        # format.html { redirect_to(@expense) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

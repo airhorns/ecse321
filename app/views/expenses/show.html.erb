@@ -33,12 +33,16 @@
   <%=h @expense.state_to_s %>
 </p>
 
+<% if can_approve?(@expense) %>
 <p>
 <%= link_to 'Reject', :controller => 'expenses', :action => 'reject', :id => @expense %> |
 <%= link_to 'Approve', :controller => 'expenses', :action => 'approve', :id => @expense %>
 </p>
+<% end %>
 
+<% if can_update?(@expense) %>
 <p>
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
-<%= link_to 'Back', expenses_path %>
+<% end %>
+<%= link_to 'Back', :back %>
 </p>

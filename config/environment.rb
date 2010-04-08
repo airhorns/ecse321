@@ -24,7 +24,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem "carmen"
   config.gem "simple_autocomplete"
-  config.gem "rbacanable", :lib => "canable", :version => "0.2.1"
+  config.gem "rbacanable", :lib => "canable", :version => "0.2.2"
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

@@ -3,7 +3,12 @@
 
 <p>
   Task:<br />
-  <%= f.collection_select :task_id, Task.all, :id, :full_name %>
+  <%= f.collection_select :task_id, current_user.projects.inject([]) { |array, project| array.concat(project.tasks )}, :id, :full_name %>
+</p>
+
+<p>
+  Name:<br />
+  <%= f.text_field :name %>
 </p>
 
 <p>
