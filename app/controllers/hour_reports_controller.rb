@@ -136,7 +136,8 @@ class HourReportsController < ApplicationController
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully approved.'
-        format.html { redirect_to(@hour_report) }
+        format.html { redirect_to(:back) }
+        #format.html { redirect_to(@hour_report) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -153,7 +154,8 @@ class HourReportsController < ApplicationController
     respond_to do |format|
       if @hour_report.update_attributes(params[:hour_report])
         flash[:notice] = 'HourReport was successfully rejected.'
-        format.html { redirect_to(@hour_report) }
+        format.html { redirect_to(:back) }
+        #format.html { redirect_to(@hour_report) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

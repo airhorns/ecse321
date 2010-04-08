@@ -39,5 +39,65 @@
   <%=h @project.created_at %>
 </p>
 
+<% tasks = @project.tasks %>
+<% hours = [] %>
+<% expenses = [] %>
+<% tasks.each do |task|
+  hours.concat( HourReport.find(:all, :conditions => {:task_id => task.id, :state => HourReport::Pending } ) )
+  expenses.concat( Expense.find(:all, :conditions => {:task_id => task.id, :state => Expense::Pending } ) ) 
+    end%>
+
+<% if hours[0] && can_approve?(hours[0]) %>
+  <h3>Pending hour reports</h3>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Hours</th>
+      <th>State</th>
+    </tr>
+<% hours.each do |hour| %>
+  <tr>
+    <td><%=h hour.user %></td>
+    <td><%=h hour.name %></td>
+    <td><%=h hour.date %></td>
+    <td><%=h hour.hours %></td>
+    <td><%=h hour.state_to_s %></td>
+    <td><%= link_to( 'Show', "../hour_reports/" + hour.id.to_s ) %> |
+    <%= link_to( 'Approve', "../hour_reports/approve/" + hour.id.to_s ) %> |
+    <%= link_to( 'Reject', "../hour_reports/reject/" + hour.id.to_s )%></td>
+  </tr>
+<% end %>
+
+</table>
+<% end %>
+
+<% if expenses[0] && can_approve?(expenses[0]) %>
+  <h3>Pending expenses</h3>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Cost</th>
+      <th>State</th>
+    </tr>
+<% expenses.each do |expense| %>
+  <tr>
+    <td><%=h expense.user %></td>
+    <td><%=h expense.name %></td>
+    <td><%=h expense.date %></td>
+    <td><%=h expense.cost_to_s %></td>
+    <td><%=h expense.state_to_s %></td>
+    <td><%= link_to( 'Show', "../expenses/" + expense.id.to_s ) %> |
+    <%= link_to( 'Approve', "../expenses/approve/" + expense.id.to_s ) %> |
+    <%= link_to( 'Reject', "../expenses/reject/" + expense.id.to_s )%></td>
+  </tr>
+<% end %>
+
+</table>
+<% end %>
+
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

@@ -119,7 +119,8 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         flash[:notice] = 'Expense was successfully approved.'
-        format.html { redirect_to(@expense) }
+        format.html { redirect_to(:back) }
+        # format.html { redirect_to(@expense) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -136,7 +137,8 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         flash[:notice] = 'Expense was successfully rejected.'
-        format.html { redirect_to(@expense) }
+        format.html { redirect_to(:back) }
+        # format.html { redirect_to(@expense) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -115,7 +115,8 @@ module Canable
       end
       
       def can_create_task?(task)
-        can_update_project?(task.project)
+        #can_update_project?(task.project)
+        true
       end
       
       def can_update_project?(project)
