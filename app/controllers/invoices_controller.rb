@@ -39,6 +39,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/1.xml
   def show
     @invoice = Invoice.find(params[:id])
+	@hours = 0
 
     respond_to do |format|
       format.html # show.html.erb

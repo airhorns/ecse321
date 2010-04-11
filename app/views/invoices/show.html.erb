@@ -13,14 +13,15 @@
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <p><h2>Billed amounts</h2>
-  <ul><% @invoice.project.tasks.each do |task| %>
-	<b><li><%= task.name %> - $<%= task.get_cost %></li></b>
-    <ul><% task.project_costs.each do |cost| %>
+  <ul><% @invoice.iftask.each do |task| %>
+  <b><li><%= task.name %></li></b>
+    <ul><% @invoice.date_cost2[task.id].each do |cost|%>
 	  <li><b><%= cost.name %></b> - $<%= cost.get_cost %> - <%= cost.date %> - <i><%=h cost.type %></i></li>
 	<% end %></ul>
-  <% end %></ul>
-
+  <% end %></ul></p>
+  
 
 
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
 <%= link_to 'Back', invoices_path %>
+

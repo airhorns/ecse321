@@ -18,4 +18,15 @@ class Task < ActiveRecord::Base
     self.project_costs.inject(0) { |sum, cost| sum += cost.get_cost }
   end
   
+  #under experiment
+  def dtc
+		sum = 0
+	    mycosts = Array.new
+		mycosts.concat(self.project_costs.find(:all, :conditions => {:date => start_date..end_date }))
+		mycosts.each do |cost|
+		  sum = sum + cost
+		end
+		return sum
+	end
+  
 end
