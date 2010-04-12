@@ -36,13 +36,14 @@
 <% if can_approve?(@expense) %>
 <p>
 <%= link_to 'Reject', :controller => 'expenses', :action => 'reject', :id => @expense %> |
-<%= link_to 'Approve', :controller => 'expenses', :action => 'approve', :id => @expense %>
+<%= link_to 'Approve', :controller => 'expenses', :action => 'approve', :id => @expense %> |
+<%= link_to 'Back to project', :controller => 'projects', :action => 'show', :id => @expense.project %>
 </p>
 <% end %>
 
 <% if can_update?(@expense) %>
 <p>
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
+<%= link_to 'Back to expense list', expenses_path %>
 <% end %>
-<%= link_to 'Back', :back %>
 </p>
