@@ -155,4 +155,58 @@ class ActiveSupport::TestCase
       assert_redirected_to(new_user_session_path)
     end
   end  
+  
+  def self.should_allow_only_admin_crud
+    should_allow_admin_crud
+    Canable.actions.each do |can, able|
+      method_name = "#{able}_by?".intern
+      should "not allow non-admins to #{can}" do
+        assert subject.respond_to?(method_name), "#{subject} doesn't respond to #{method_name}"
+        @not_admins.each do |user|
+          assert ! subject.send(method_name, user), "User #{user} of type #{user.canable_included_role} can #{can}."
+        end
+      end
+    end
+  end
+  
+  def self.project_cost_should_allow_associated_employees_to_create
+    should "not be creatable by users if no task is specified" do
+      @not_admins.each do |user|
+        assert ! user.can_create?(Expense.new)
+      end
+    end
+    should "be creatable by users associated with the project" do
+      assert @associated_user.can_create?(Expense.new(:task => subject.task))
+    end
+    should "not be creatable by users who aren't associated with the project" do
+      assert ! @extra_user.can_create?(Expense.new(:task => subject.task))
+    end
+  end
+  
+  def self.project_cost_should_be_destroyable_by_creator_user_if_not_approved
+    should "not be destructable by non owning employees" do
+      assert ! @extra_user.can_destroy?(subject)
+    end
+    should "be destructable by the owning user if the expense state is Pending" do
+      subject.state = ProjectCost::Pending
+      assert @owning_user.can_destroy?(subject)
+    end
+    should "be destructable by the owning user if the expense state is Rejected" do
+      subject.state = ProjectCost::Rejected
+      assert @owning_user.can_destroy?(subject)
+    end
+    should "not be destructable by the owning user if the expense state is Approved" do
+      subject.state = ProjectCost::Approved
+      assert ! @owning_user.can_destroy?(subject)
+    end
+  end
+  
+  def self.should_act_as_project_cost
+    should_only_be_editable_by_creator_user
+    should_only_be_editable_by_associated_project_managers
+    should_be_approvable_by_project_manager
+    should_only_be_editable_by_creator_user
+    project_cost_should_allow_associated_employees_to_create
+    project_cost_should_be_destroyable_by_creator_user_if_not_approved
+  end
 end

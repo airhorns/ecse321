@@ -1,8 +1,10 @@
 class Invoice < ActiveRecord::Base
+  include Canable::Ables
+  
   validates_presence_of :project_id, :message => "- Please choose a project"
 	belongs_to :project
 	
-  validates_presence_of :project_id, :start_date, :end_date
+  validates_presence_of :start_date, :end_date
 	
 	def total_cost
 		sum = 0

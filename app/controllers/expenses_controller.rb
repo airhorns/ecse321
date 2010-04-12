@@ -19,7 +19,7 @@ class ExpensesController < ApplicationController
     end
     conditions = {:user_id => current_user.id}
     conditions[:state] = state_condition if state_condition
-    @expenses = Expense.find(:all, :order => "date DESC", :conditions => conditions)
+    @expenses = Expense.find(:all, :include => {:task => {:project => [:users, :user]}, :user => nil}, :order => "date DESC", :conditions => conditions)
   
     respond_to do |format|
       format.html # index.html.erb

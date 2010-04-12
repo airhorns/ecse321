@@ -110,6 +110,10 @@ module Canable
         is_part_of_project?(project_cost.project)
       end
       
+      def can_destroy_project_cost?(project_cost)
+        is_owner?(project_cost) && (project_cost.state == ProjectCost::Pending || project_cost.state == ProjectCost::Rejected)
+      end
+      
       # Hour Report permissions for Employees
       # view: only those reported by themselves
       # update: only those reported by themselves
@@ -123,7 +127,7 @@ module Canable
       # create: only for projects the employee is associated with
       
       ['expense', 'hourreport'].each do |able|
-        ['view', 'update', 'create'].each do |can|
+        ['view', 'update', 'create', 'destroy'].each do |can|
           define_method("can_#{can}_#{able}?".intern) do |project_cost|
             self.send("can_#{can}_project_cost?", project_cost)
           end

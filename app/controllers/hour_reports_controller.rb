@@ -6,18 +6,20 @@ class HourReportsController < ApplicationController
   # GET /hour_reports
   # GET /hour_reports.xml
   def index 
+    state_condition = [HourReport::Pending, HourReport::Rejected]
     if params[:all]
-      @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id })
+      state_condition = false
     else
       if params[:pending]
-        @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => HourReport::Pending })
+        state_condition = HourReport::Pending
       elsif params[:rejected]
-        @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => HourReport::Rejected })
-      else
-        @hour_reports = HourReport.find(:all, :order => "date DESC", :conditions => {:user_id => current_user.id, :state => [HourReport::Pending, HourReport::Rejected] })
+        state_condition = HourReport::Rejected
       end
       @hour_report = HourReport.new
     end
+    conditions = {:user_id => current_user.id}
+    conditions[:state] = state_condition if state_condition
+    @hour_reports = HourReport.find(:all, :include => {:task => {:project => [:users, :user]}, :user => nil}, :order => "date DESC", :conditions => conditions)
 
     respond_to do |format|
       format.html # index.html.erb

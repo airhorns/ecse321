@@ -5,6 +5,7 @@ class PermissionsTest < ActiveSupport::TestCase
     setup do
       @user = Factory.create(:user)
       @owning_user = @user
+      @associated_user = @user
       @extra_user = Factory.create(:user, :email => "jim@gmail.com")
       
       @owning_manager = Factory.create(:manager) # manages the projects
@@ -109,7 +110,7 @@ class PermissionsTest < ActiveSupport::TestCase
     end
     context "and a project resource, the project resource" do
       setup do
-        @project = Factory.create(:project, :user => @owning_manager)
+        @project = Factory.create(:project, :user => @owning_manager, :users => [@associated_user])
       end
       subject { @project }    
       
@@ -128,22 +129,37 @@ class PermissionsTest < ActiveSupport::TestCase
         end
         subject { @task1 }
         
+        should_allow_admin_crud
+        should_only_be_editable_by_associated_project_managers
+        should_not_be_editable_by_employees
+        should_only_allow_admins_to_destroy
+        
         context "and an valid expense resource, the expense resource" do
           setup do
             @expense = Factory.create(:expense, :task => @task1, :user => @owning_user)
           end
           subject { @expense }
-
-          should_only_be_editable_by_associated_project_managers
-          should_be_approvable_by_project_manager
-          should_only_be_editable_by_creator_user
-
+          
+          should_act_as_project_cost
+          
         end
 
-        context "and an hour report resource, the houre report resource" do
+        context "and an hour report resource, the hour report resource" do
           setup do
-            #@expense = Factory.create(:expense, :project => @project)
+            @hour_report = Factory.create(:hour_report, :task => @task1, :user => @owning_user)
           end
+          subject { @hour_report }
+          
+          should_act_as_project_cost
+          
+        end
+        
+        context "and an invoice resource, the invoice resource" do
+          setup do
+            @invoice = Factory.create(:invoice, :project => @project)
+          end
+          subject { @invoice }
+          should_allow_only_admin_crud
         end
       end
     end
