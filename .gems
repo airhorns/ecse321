@@ -1,4 +1,5 @@
 authlogic
 carmen
 simple_autocomplete
-rbacanable
+rbacanable --version 0.2.2
+yard
