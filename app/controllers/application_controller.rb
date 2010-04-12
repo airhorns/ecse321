@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
       if current_user
         store_location
         flash[:notice] = "You must be logged out to access this page"
-        redirect_to account_url
+        redirect_to root_url
         return false
       end
     end
@@ -64,6 +64,7 @@ class ApplicationController < ActionController::Base
     # logged in to send them back to where they were going if they were interrupted. 
     # @return [nil]
     def redirect_back_or_default(default)
+      session[:return_to] = nil if session[:return_to] =~ /user_session/
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end

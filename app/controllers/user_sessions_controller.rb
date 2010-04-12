@@ -26,7 +26,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Login successful!"
       # Call the special redirect handler {ApplicationController#redirect_back_or_default} 
       # to take a user back to the url they tried to access but were denied access.
-      redirect_back_or_default account_url 
+      redirect_back_or_default root_url 
     else
       # Show the user the login form again if they weren't able to log in.
       render :action => :new

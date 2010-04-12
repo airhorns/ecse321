@@ -26,7 +26,7 @@
 :password_confirmation => "apple123", 
 :role => "employee")
 
-@employees = [].push(@joe)
+@employees = [@joe, @admin]
 
 @mary = User.create!(:email=>"mary@example.com", 
 :active=> true,
@@ -84,7 +84,7 @@ end
 :due_date => "2010-04-06 00:00:00 UTC",
 :user => @mary,
 :business => @acme,
-:users => @employees[2..-1])
+:users => @employees[3..-1].push(@joe))
 
 Task.create!([{:name => "Layout and CSS", :description => "Visual themeing of the website", :project => @project1}, 
               {:name => "MVC Code", :description => "Rails work.", :project => @project1},
@@ -104,7 +104,7 @@ Task.create!([{:name => "Layout", :description => "Visual themeing and graphic d
 @employees.each do |user|
   [@project1, @project2].each do |project|
     (rand(5) + 3).times do 
-      Expense.create!(:name => "Dinner with client.", 
+      Expense.create!(:name => %w{Dinner Lunch Breakfast Tea}.rand + " with client.", 
                       :description => "An important meal where important things were discussed.",
                       :date => Time.now - rand(5).days - rand(1000).minutes,
                       :user => user,
@@ -113,14 +113,15 @@ Task.create!([{:name => "Layout", :description => "Visual themeing and graphic d
                       :state => [Expense::Pending, Expense::Approved, Expense::Rejected][rand(3)]
                     )
     end
-    (rand(20) + 10).times do 
-      HourReport.create!(:name	=> 'An important feature',
-												 :description => "An important meal where important things were discussed.",
+    (rand(10) + 5).times do 
+      task = project.tasks.rand
+      HourReport.create!(:name	=> "Worked on #{task.name}",
+												 :description => "Spent some time working on task ##{task.id}",
                          :date => Time.now - rand(5).days - rand(1000).minutes,
                          :hours => rand(10)+1,
                          :user => user,
                          :cost => rand(10000)/2, 
-                         :task => project.tasks[rand(project.tasks.length-1)],
+                         :task => task,
                          :state => [HourReport::Pending, HourReport::Approved, HourReport::Rejected][rand(3)]
                         )
     end
