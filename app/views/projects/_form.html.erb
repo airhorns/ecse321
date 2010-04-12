@@ -35,6 +35,6 @@
 
   <p>
   <% if @project.name then label = 'Update' else label = 'Create' end%>
-    <%= f.submit label %>
+    <%= f.submit label, :class => "go" %>
   </p>
 <% end %>

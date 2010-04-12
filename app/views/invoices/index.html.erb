@@ -5,6 +5,7 @@
     <th>Project</th>
     <th>Start date</th>
     <th>End date</th>
+	<th>Actions</th>
   </tr>
 
 <% @invoices.each do |invoice| %>
@@ -12,9 +13,11 @@
     <td><%=h invoice.project %></td>
     <td><%=h invoice.start_date %></td>
     <td><%=h invoice.end_date %></td>
-	<td><%= link_to 'Show', invoice %></td>
-    <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
-    <td><%= link_to 'Destroy', invoice, :confirm => 'Are you sure?', :method => :delete %></td>
+	<td>
+	<%= link_to 'Show', invoice, :class => "awesome small show" %>
+    <%= link_to 'Edit', edit_invoice_path(invoice), :class => "awesome small edit" %>
+    <%= link_to 'Destroy', invoice, :confirm => 'Are you sure?', :method => :delete, :class => "awesome small destroy" %>
+	</td>
   </tr>
 <% end %>
 </table>

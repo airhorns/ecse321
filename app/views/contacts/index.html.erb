@@ -19,9 +19,9 @@
     <td><%=h contact.department %></td>
     <td><%=h contact.telephone %></td>
     <td><%=h contact.address.to_s %></td>
-    <td><%= link_to 'Show', contact %> | 
-    <%= link_to 'Edit', edit_contact_path(contact) %> |
-    <%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', contact, :class => "awesome show small" %> 
+    <%= link_to 'Edit', edit_contact_path(contact), :class => "awesome edit small" %>
+    <%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete, :class => "awesome destroy small" %></td>
   </tr>
 <% end %>
 </table>

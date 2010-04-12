@@ -14,7 +14,7 @@ body {
 }
 #header .container {
 	border: none;
-	border-bottom: 2px solid #DDD;
+	border-bottom: 2px solid #DADADA;
 	
 }
 #header {
@@ -70,7 +70,8 @@ form p + p {
 }
 
 /* Awesome CSS3 Buttons, taken from http://www.zurb.com/blog_uploads/0000/0617/buttons-03.html */
-.awesome, .awesome:visited {
+.awesome, .awesome:visited, input[type=submit] {
+	border: 0px;
 	background: #222 url(/images/alert-overlay.png) repeat-x; 
 	display: inline-block; 
 	padding: 5px 10px 6px; 
@@ -86,22 +87,39 @@ form p + p {
 	cursor: pointer;
 }
  
-.awesome:hover							{ background-color: #111; color: #fff; }
-.awesome:active							{ top: 1px; }
-.small.awesome, .small.awesome:visited 			{ font-size: 11px; padding: ; }
+.awesome:hover, input[type=submit]:hover 		{ background-color: #111; color: #fff; }
+.awesome:active, input[type=submit]:active		{ top: 1px; }
+.small.awesome, .small.awesome:visited,
+input[type=submit].small					   	{ font-size: 11px; padding: ; margin-bottom: 0px; }
 .awesome, .awesome:visited,
-.medium.awesome, .medium.awesome:visited 		{ font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
-.large.awesome, .large.awesome:visited 			{ font-size: 14px; padding: 8px 14px 9px; }
+.medium.awesome, .medium.awesome:visited,
+input[type=submit], input[type=submit].medium	{ font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
+.large.awesome, .large.awesome:visited,
+input[type=submit].large			 			{ font-size: 14px; padding: 8px 14px 9px; }
 
-.green.awesome, .green.awesome:visited		{ background-color: #91bd09; }
-.green.awesome:hover						{ background-color: #749a02; }
-.blue.awesome, .blue.awesome:visited		{ background-color: #2daebf; }
-.blue.awesome:hover							{ background-color: #007d9a; }
-.red.awesome, .red.awesome:visited			{ background-color: #e33100; }
-.red.awesome:hover							{ background-color: #872300; }
-.magenta.awesome, .magenta.awesome:visited		{ background-color: #a9014b; }
-.magenta.awesome:hover							{ background-color: #630030; }
-.orange.awesome, .orange.awesome:visited		{ background-color: #ff5c00; }
-.orange.awesome:hover							{ background-color: #d45500; }
-.yellow.awesome, .yellow.awesome:visited		{ background-color: #ffb515; }
-.yellow.awesome:hover							{ background-color: #fc9200; }
+.green.awesome, .green.awesome:visited, input[type=submit].green,
+.show.awesome, 	.show.awesome:visited									{ background-color: #91bd09; }
+.green.awesome:hover, input[type=submit].green:hover,
+.show.awesome:hover														{ background-color: #749a02; }
+
+.go.awesome, .go.awesome:visited, input[type=submit].go					{ background-color: #149632; }
+.go.awesome:hover, input[type=submit].go:hover							{ background-color: #02731C; }
+
+.blue.awesome, .blue.awesome:visited, input[type=submit].blue,
+.edit.awesome, .edit.awesome:visited									{ background-color: #2daebf; }
+.blue.awesome:hover, input[type=submit].blue:hover,
+.edit.awesome:hover														{ background-color: #007d9a; }
+
+.red.awesome, .red.awesome:visited, input[type=submit].red,
+.destroy.awesome, .destroy.awesome:visited								{ background-color: #e33100; }
+.red.awesome:hover, input[type=submit].red:hover,						
+.destroy.awesome:hover													{ background-color: #872300; }
+
+.darkred.awesome, .darkred.awesome:visited, input[type=submit].darkred	{ background-color: #CC0202; }
+.darkred.awesome:hover, input[type=submit].darkred:hover				{ background-color: #8C0A0A; }
+.magenta.awesome, .magenta.awesome:visited, input[type=submit].magenta	{ background-color: #a9014b; }
+.magenta.awesome:hover, input[type=submit].magenta:hover				{ background-color: #630030; }
+.orange.awesome, .orange.awesome:visited, input[type=submit].orange		{ background-color: #ff5c00; }
+.orange.awesome:hover, input[type=submit].orange:hover					{ background-color: #d45500; }
+.yellow.awesome, .yellow.awesome:visited, input[type=submit].yellow		{ background-color: #ffb515; }
+.yellow.awesome:hover, input[type=submit].yellow:hover					{ background-color: #fc9200; }

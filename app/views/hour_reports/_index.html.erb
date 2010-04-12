@@ -14,9 +14,13 @@
     <td><%=h hour_report.hours %></td>
     <td><%=h hour_report.date %></td>
     <td><%=h hour_report.state_to_s %></td>
-    <td><%= link_to 'Show', hour_report %> |
-    <%= link_to 'Edit', edit_hour_report_path(hour_report) %> |
-    <%= link_to 'Destroy', hour_report, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', hour_report, :class => "awesome small show" %>
+	<% if can_update?(hour_report) %>
+    <%= link_to 'Edit', edit_hour_report_path(hour_report), :class => "awesome small edit" %>
+	<% end %>
+	<% if can_destroy?(hour_report) %>
+    <%= link_to 'Destroy', hour_report, :confirm => 'Are you sure?', :method => :delete, :class => "awesome small destroy" %>
+	<% end %></td>
   </tr>
 <% end %>
 </table>

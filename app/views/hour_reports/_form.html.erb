@@ -28,6 +28,6 @@
 
 <p>
   <% unless @hour_report.new_record? then label = 'Update' else label = 'Create' end %>
-  <%= f.submit label %>
+  <%= f.submit label, :class => "go" %>
 </p>
 <% end %>

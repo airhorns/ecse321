@@ -14,11 +14,13 @@
     <td><%=h expense.cost_to_s %></td>
     <td><%=h expense.date %></td>
     <td><%=h expense.state_to_s %></td>
-    <td><%= link_to 'Show', expense %> |
+    <td><%= link_to 'Show', expense, :class => "awesome small show" %> 
     <% if can_update?(expense) %>
-    <%= link_to 'Edit', edit_expense_path(expense) %> |
+    <%= link_to 'Edit', edit_expense_path(expense), :class => "awesome small edit" %> 
     <% end %>
-    <%= link_to 'Destroy', expense, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% if can_destroy?(expense) %>
+    <%= link_to 'Destroy', expense, :confirm => 'Are you sure?', :method => :delete, :class => "awesome small destroy" %>
+	<% end %></td>
   </tr>
 <% end %>
 </table>

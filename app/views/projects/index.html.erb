@@ -2,10 +2,11 @@
 
 <table>
   <tr>
-	<td>Name</td>
-	<td>Due Date</td>
-	<td>Owner</td>
-	<td>Business</td>
+	<th>Name</th>
+	<th>Due Date</th>
+	<th>Owner</th>
+	<th>Business</th>
+	<th>Actions</th>
   </tr>
 
 <% @projects.each do |project| %>
@@ -14,9 +15,13 @@
 	<td><%= project.due_date %></td>
 	<td><%= project.user %></td>
 	<td><%= project.business %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', project, :class => "awesome small show" %>
+	<% if can_update?(project) %>
+    <%= link_to 'Edit', edit_project_path(project), :class => "awesome small edit" %>
+	<% end %>
+	<% if can_destroy?(project) %>
+    <%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete, :class => "awesome small destroy" %>
+	<% end %></td>
   </tr>
 <% end %>
 </table>
