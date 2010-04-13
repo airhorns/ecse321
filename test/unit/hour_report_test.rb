@@ -4,10 +4,10 @@ class HourReportTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   context "Hour reports with various permissions" do
     setup do
-      @pending_cost = Factory.create(:pending)
-      @appoved_cost = Factory.create(:approved)
-      @rejected_cost = Factory.create(:rejected)
-      @invoiced_cost = Factory.create(:invoiced)
+      @pending_cost = Factory.create(:pending_hour_report)
+      @appoved_cost = Factory.create(:approved_hour_report)
+      @rejected_cost = Factory.create(:rejected_hour_report)
+      @invoiced_cost = Factory.create(:invoiced_hour_report)
     end
 
     should "return correct state strings" do

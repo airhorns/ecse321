@@ -4,10 +4,10 @@ class ExpenseTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   context "Expenses with various permissions" do
     setup do
-      @pending_cost = Factory.create(:pending)
-      @appoved_cost = Factory.create(:approved)
-      @rejected_cost = Factory.create(:rejected)
-      @invoiced_cost = Factory.create(:invoiced)
+      @pending_cost = Factory.create(:pending_expense)
+      @appoved_cost = Factory.create(:approved_expense)
+      @rejected_cost = Factory.create(:rejected_expense)
+      @invoiced_cost = Factory.create(:invoiced_expense)
     end
 
     should "return correct state strings" do
