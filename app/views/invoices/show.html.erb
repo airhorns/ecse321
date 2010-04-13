@@ -14,7 +14,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <p><h2>Billed amounts</h2>
   <ul><% @invoice.iftask.each do |task| %>
-  <b><li><%= task.name %></li></b>
+  <b><li><%= task.name %> - <%= @invoice.task_cost(task.id) %></li></b>
     <ul><% @invoice.date_cost2[task.id].each do |cost|%>
 	  <li><b><%= cost.name %></b> - $<%= cost.get_cost %> - <%= cost.date %> - <i><%=h cost.type %></i></li>
 	<% end %></ul>
