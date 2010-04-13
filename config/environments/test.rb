@@ -29,4 +29,5 @@ config.action_mailer.delivery_method = :test
 
 config.gem "factory_girl"
 config.gem "shoulda"
+config.gem "terminal-table"
 

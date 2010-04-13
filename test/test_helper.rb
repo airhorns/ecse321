@@ -21,9 +21,10 @@ module Canable
 end
 require 'test_help'
 require "authlogic/test_case"
-
+require 'terminal-table/import'
 
 class ActiveSupport::TestCase
+  cattr_accessor :display_tables
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
   # test database remains unchanged so your fixtures don't have to be reloaded
@@ -86,5 +87,6 @@ class ActiveSupport::TestCase
       end
     end
   end
-  
 end
+
+ActiveSupport::TestCase.display_tables = true if ENV['TABLES']

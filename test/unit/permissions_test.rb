@@ -1,4 +1,31 @@
 require 'test_helper'
+require 'pp'
+
+$resources = [Address.new, Business.new, Contact.new, Expense.new, HourReport.new, Project.new, Task.new, Invoice.new, User.new]
+
+$permissions_checked = {:admin => [], :employee => [], :manager => []}.inject({}) do |hash, (key, val)|
+  hash[key] = $resources.inject({}) { |harsh, resource|
+    name = resource.class.to_s.downcase.intern
+    harsh[name] = case name
+    when :hourreport, :expense
+      {:create => false, :destroy => false, :view => false, :update => false, :approve => false, :reject => false}
+    else
+      {:create => false, :destroy => false, :view => false, :update => false, :approve => "nocall", :reject => "nocall"}
+    end
+    harsh
+  }
+  hash
+end
+
+class User
+  after_permissions_query :after_query
+  def after_query(options = {})
+    role = options[:can].role.intern
+    resource = options[:able].class.to_s.downcase.intern
+    $permissions_checked[role][resource][options[:permission]] = true
+  end
+end
+
 
 # Permissions specific test methods
 class ActiveSupport::TestCase
@@ -46,18 +73,7 @@ class ActiveSupport::TestCase
       assert ! @user.can_update?(subject)
     end
   end
-  
-  def self.should_be_approvable_by_project_manager
-    should "be approvable and rejectable by project manager" do
-      assert @owning_manager.can_approve?(subject)
-      assert @owning_manager.can_reject?(subject)
-    end
-    should "not be approvable by managers who aren't managing the associated project" do
-      assert ! @extra_manager.can_approve?(subject)
-      assert ! @extra_manager.can_reject?(subject)
-    end
-  end
-  
+    
   def self.should_only_be_editable_by_creator_user
     should "be updatable by user who created it" do
       assert @owning_user.can_update?(subject)
@@ -124,10 +140,30 @@ class ActiveSupport::TestCase
   def self.should_act_as_project_cost
     should_only_be_editable_by_creator_user
     should_only_be_editable_by_associated_project_managers
-    should_be_approvable_by_project_manager
     should_only_be_editable_by_creator_user
     project_cost_should_allow_associated_employees_to_create
     project_cost_should_be_destroyable_by_creator_user_if_not_approved
+    
+    should "allow approval and rejection by administrators" do
+      assert @admin.can_approve?(subject)
+      assert @admin.can_reject?(subject)
+    end
+    
+    should "not allow approval or rejection by employees" do
+      @employees.each do |user|
+        assert ! user.can_approve?(subject)
+        assert ! user.can_reject?(subject)
+      end
+    end
+    
+    should "be approvable and rejectable by project manager" do
+      assert @owning_manager.can_approve?(subject)
+      assert @owning_manager.can_reject?(subject)
+    end
+    should "not be approvable by managers who aren't managing the associated project" do
+      assert ! @extra_manager.can_approve?(subject)
+      assert ! @extra_manager.can_reject?(subject)
+    end
   end
 end
 
@@ -136,16 +172,18 @@ class PermissionsTest < ActiveSupport::TestCase
   context "Users with various permissions" do
     setup do
       @user = Factory.create(:user)
-      @owning_user = @user
-      @associated_user = @user
       @extra_user = Factory.create(:user, :email => "jim@gmail.com")
       
       @owning_manager = Factory.create(:manager) # manages the projects
       @extra_manager = Factory.create(:manager, :email => "manager@gmail.com") # does not manage the project
       @admin = Factory.create(:admin)
       
+      # Shortcuts to iterate over
       @not_admins = [@user, @owning_manager, @extra_manager]
       @all_users = [@user, @owning_manager, @extra_manager, @admin]
+      @employees = [@user, @extra_user]
+      @owning_user = @user
+      @associated_user = @user
     end
     
     should "reflect their proper permissions" do
@@ -158,7 +196,7 @@ class PermissionsTest < ActiveSupport::TestCase
     should "be able to operate on new objects" do
       assert_nothing_raised(Exception) do
         @all_users.each do |user|
-          [Address.new, Business.new, Contact.new, Expense.new, HourReport.new, Project.new, Task.new, Invoice.new, User.new].each do |resource|
+          $resources.each do |resource|
             user.can_view?(resource)
             user.can_update?(resource)
             user.can_destroy?(resource)
@@ -294,6 +332,29 @@ class PermissionsTest < ActiveSupport::TestCase
           should_allow_only_admin_crud
         end
       end
+    end
+  end
+end
+
+class PermissionsTestTest < ActiveSupport::TestCase
+  should "test all the roles on all the actions on all the resources" do
+    permissions = table do |t|
+      t.headings = "Role", "Resource", "view", "create", "update", "destroy", "approve", "reject"
+      $permissions_checked.each do |role, resources|
+        resources.each do |resource, actions|
+          row = [role, resource] 
+          [:view, :create, :update, :destroy, :approve, :reject].each do |p|
+            row << actions[p]
+            assert actions[p] == true || actions[p] == 'nocall', "#{p} was not checked for #{role} on #{resource}"
+          end
+          t << row
+        end
+      end
+    end
+    if self.display_tables
+      puts 
+      puts "Permissions Query Table -- shows every permissions query tested"
+      puts permissions
     end
   end
 end

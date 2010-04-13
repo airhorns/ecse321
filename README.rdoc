@@ -15,11 +15,31 @@ The controller and view are handled by the Action Pack, which handles both layer
 
 == Getting Started
 
+You need to have a functional Ruby installation and the Rails gem (version 2.3.5) installed to be able to run the system. For more information on installing Ruby and Rails, visit this guide: http://rubyonrails.org/download
+
+You also need the gems the application depends on. These can be automatically installed for you buy running 'rake gems:install' in the root directory of the project.
+
+=== To install the application:
+1. Ensure you have a functional Ruby interpreter.
+2. Install the Rails gems. More info can be found here: http://rubyonrails.org/download
+3. At the command prompt, change directory into the root project directory (ecse321 if you got it from git or a tarball) so you can run 'rake', the application's command line interface.
+4. Run 'rake gems:install' to install the gems the application depends on to work.
+5. Run 'rake db:migrate' to set up the database for the application. The application uses a local SQLite3 database in development mode.
+6. (Optional) Run 'rake db:seed' to populate the database with some test data suitable for exploration.
+
+=== To run the application: 
 1. At the command prompt, change directory into the root project directory (ecse321 if you got it from git or a tarball), and start the web server: <tt>script/server</tt> (run with --help for options)
 2. Go to http://localhost:3000/ and see the system.
-3. Log in with the default user name a password, admin : apple123, to begin using the system. Be sure to change this 
+3. Log in with the default user name a password, admin@example.com : apple123, to begin using the system. Be sure to change this 
 password or delete this account to prevent unauthorized access.
 
+To view the application in production online, visit http://accutron9500.heroku.com/.
+
+== Running Tests
+
+To run the application's tests, you must have successfully installed the application as described above. You must also install the gems the application depends on for testing. Do this by running 'rake gems:install RAILS_ENV=test'
+
+Once the application and testing dependencies are installed, you can navigate to the project root and run 'rake test' to run all the tests, 'rake test:units' to run all the unit tests, and 'rake test:functionals' to run the functional tests. You can also set the environment variable 'TABLES' to true or pass the --trace option to get some helpful output during the tests.
 
 == Web Servers
 
@@ -27,7 +47,7 @@ By default, Rails will try to use Mongrel if it's are installed when started wit
 
 Mongrel is a Ruby-based webserver with a C component (which requires compilation) that is suitable for development and deployment of Rails applications. If you have Ruby Gems installed, getting up and running with mongrel is as easy as: <tt>gem install mongrel</tt>. More info at: http://mongrel.rubyforge.org
 
-The PMS was designed with the intention of deployment to Heroku (http://heroku.com), a rock-solid Ruby and Rails platform hosted in the cloud. This gives the PMS supreme reliability, speed, and easy deployment. See a production version of the application at http://ecse321.heroku.com filled with demo data.
+The PMS was designed with the intention of deployment to Heroku (http://heroku.com), a rock-solid Ruby and Rails platform hosted in the cloud. This gives the PMS supreme reliability, speed, and easy deployment. See a production version of the application at http://accutron9500.heroku.com filled with demo data.
 
 
 == Debugger

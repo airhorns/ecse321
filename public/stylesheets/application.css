@@ -44,6 +44,7 @@ ul#menu ul {
 #footer {
 	color: #999;
 	text-align: center;
+	margin-top: 20px;
 }
 /* Reset Blueprint's consecutive paragraph indent since we aren't doing blocks of text */
 p + p {
