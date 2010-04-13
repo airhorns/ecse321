@@ -12,12 +12,14 @@ class ProjectCost < ActiveRecord::Base
   Pending = 0
   Approved = 1
   Rejected = 2
+  Invoiced = 3
 
   def state_to_s
     case self.state
       when Pending then 'Pending'
       when Approved then 'Approved'
       when Rejected then 'Rejected'
+	  when Invoiced then 'Invoiced'
       else 'Undefined'
     end
   end

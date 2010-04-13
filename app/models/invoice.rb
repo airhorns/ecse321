@@ -17,18 +17,18 @@ class Invoice < ActiveRecord::Base
 	end
 	
 	#doesnt work
-	def task_cost
+	def task_cost(id)
 		sum = 0
-		self.date_cost2[self.project.tasks.find(:all, :conditions => {:id => tasks.id})].each do |cost|
+		self.date_cost2[id].each do |cost|
 		    sum = sum + cost.get_cost
 		end
+		return sum
 	end
 	
 	def date_cost2
 	    mycosts = Array.new
 		self.project.tasks.each do |task|
-		  mycosts2 = Array.new
-          mycosts2.concat(task.project_costs.find(:all, :conditions => {:date => start_date..end_date }))
+		  mycosts2 = task.project_costs.find(:all, :conditions => {:date => start_date..end_date, :state => [ProjectCost::Approved] })
 		  #if mycosts2.empty? then
 		   # next
 		  #end
@@ -41,7 +41,7 @@ class Invoice < ActiveRecord::Base
 	    mytasks = Array.new
 		self.project.tasks.each do |task|
 		  mycosts2 = Array.new
-          mycosts2.concat(task.project_costs.find(:all, :conditions => {:date => start_date..end_date }))
+          mycosts2.concat(task.project_costs.find(:all, :conditions => {:date => start_date..end_date, :state => [ProjectCost::Approved] }))
 	      if mycosts2.empty?
 		    next
 		  end
@@ -50,6 +50,12 @@ class Invoice < ActiveRecord::Base
 		return mytasks
 	end
 	
+#	def updateInv		
+#		self.iftask.each do |task|
+#		  self.date_cost2[task.id].each { |y| y.state = ProjectCost::Invoiced 
+#  		    y.save! }
+#		end
+#	end
 	
 end
 
