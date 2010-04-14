@@ -1,3 +1,4 @@
+
 Canable.add(:approve, :approvable)
 Canable.add(:reject, :rejectable)
 

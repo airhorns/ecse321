@@ -3,14 +3,14 @@
 invoice1:
   id: 1
   project: 'myproject'
-  start_date: 2010-03-31
-  end_date: 2010-03-31
+  start_date: 2010-03-31 14:53:43
+  end_date: 2010-03-31 14:53:43
 
 invoice2:
   id: 2
   project: 'butterfly'
-  start_date: 2010-04-31
-  end_date: 2010-04-31
+  start_date: 2010-04-31 14:53:43
+  end_date: 2010-04-31 14:53:43
   
 
 
