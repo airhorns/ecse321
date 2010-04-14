@@ -54,7 +54,7 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
+  fixtures :all #-- We're using FactoryGirl instead
 
   # Add more helper methods to be used by all tests here...
   def self.should_not_allow_any_actions_if_not_logged_in
