@@ -1,3 +1,4 @@
+#!/usr/bin/env
 require 'test_helper'
 
 class InvoiceTest < ActiveSupport::TestCase
