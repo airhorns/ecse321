@@ -1,5 +1,20 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+invoice1:
+  id: 1
+  project: 'myproject'
+  start_date: 2010-03-31
+  end_date: 2010-03-31
+
+invoice2:
+  id: 2
+  project: 'butterfly'
+  start_date: 2010-04-31
+  end_date: 2010-04-31
+  
+
+
+
 # one:
 #   id: 1
 #   project: MyString
