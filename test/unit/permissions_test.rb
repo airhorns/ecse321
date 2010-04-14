@@ -20,7 +20,8 @@ end
 class User
   after_permissions_query :after_query
   def after_query(options = {})
-    role = options[:can].role.intern
+    role = options[:can].role
+    role = role.intern if role.respond_to?(:intern)
     resource = options[:able].class.to_s.downcase.intern
     $permissions_checked[role][resource][options[:permission]] = true
   end
@@ -140,7 +141,6 @@ class ActiveSupport::TestCase
   def self.should_act_as_project_cost
     should_only_be_editable_by_creator_user
     should_only_be_editable_by_associated_project_managers
-    should_only_be_editable_by_creator_user
     project_cost_should_allow_associated_employees_to_create
     project_cost_should_be_destroyable_by_creator_user_if_not_approved
     
@@ -160,6 +160,7 @@ class ActiveSupport::TestCase
       assert @owning_manager.can_approve?(subject)
       assert @owning_manager.can_reject?(subject)
     end
+    
     should "not be approvable by managers who aren't managing the associated project" do
       assert ! @extra_manager.can_approve?(subject)
       assert ! @extra_manager.can_reject?(subject)
