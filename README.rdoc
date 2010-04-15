@@ -41,6 +41,10 @@ To run the application's tests, you must have successfully installed the applica
 
 Once the application and testing dependencies are installed, you can navigate to the project root and run 'rake test' to run all the tests, 'rake test:units' to run all the unit tests, and 'rake test:functionals' to run the functional tests. You can also set the environment variable 'TABLES' to true or pass the --trace option to get some helpful output during the tests.
 
+== Source Code
+
+The source code for the application is available online at http://github.com/hornairs/ecse321.
+
 == Web Servers
 
 By default, Rails will try to use Mongrel if it's are installed when started with script/server, otherwise Rails will use WEBrick, the webserver that ships with Ruby. But you can also use Rails with a variety of other web servers.

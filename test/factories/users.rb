@@ -7,6 +7,7 @@ Factory.define :user do |u|
   u.last_name "Blow"
   u.telephone "5555555555"
   u.hourly_rate 10
+  u.role "employee"
 end
 
 # needed for the example with all three types of users trying to create a new user
@@ -15,10 +16,10 @@ Factory.define :new_user, :parent => :user do |u|
 end
 
 Factory.define :admin, :parent => :user do |u|
-  u.role :admin
+  u.role "admin"
 end
 
 Factory.define :manager, :parent => :user do |u|
-  u.role :manager
+  u.role "manager"
 end
 

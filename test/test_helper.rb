@@ -58,15 +58,16 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def self.should_not_allow_any_actions_if_not_logged_in
-    context "without a logged in user, the controller" do
+    context "Without a logged in user, the controller" do
       setup do
-        assert @current_user == nil
+        assert @controller.send(:current_user) == nil
       end
       
       should "not permit access to the index action" do
         get :index
         assert_redirected_to(new_user_session_path)
       end
+      
       should "not permit access to the new action" do
         get :new
         assert_redirected_to(new_user_session_path)
@@ -81,6 +82,7 @@ class ActiveSupport::TestCase
         put :update, :id => Factory(:expense).id
         assert_redirected_to(new_user_session_path)
       end
+      
       should "not permit access to the destroy action" do
         delete :destroy, :id => Factory(:expense).id
         assert_redirected_to(new_user_session_path)

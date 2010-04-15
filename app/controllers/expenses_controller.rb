@@ -43,6 +43,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @expense = Expense.new
+    enforce_create_permission(@expense)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -82,7 +83,6 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id])
 		@expense.state = Expense::Pending
     enforce_update_permission(@expense)
-    enforce_save_permission(@expense)
     
     respond_to do |format|
       if @expense.update_attributes(params[:expense])

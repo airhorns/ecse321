@@ -2,14 +2,14 @@ require 'test_helper'
 
 class ExpensesControllerTest < ActionController::TestCase
   setup :activate_authlogic
-  context "Without a logged in user" do
-    should_not_allow_any_actions_if_not_logged_in
-  end
+  should_not_allow_any_actions_if_not_logged_in
   
-  context "With a logged in administrator user" do
+  context "With a logged in administrator user, the controller" do
     setup do
-      @user_session = UserSession.new Factory.create(:admin)
-      @user = @user_session.user
+      @user = Factory.create(:admin)
+      @expense = Factory.create(:expense)
+      @task = @expense.task
+      @user_session = UserSession.new(:user => @user)
     end
     
     should "get index" do
@@ -24,35 +24,37 @@ class ExpensesControllerTest < ActionController::TestCase
     end
 
     should "create expense" do
+      attributes =  Factory.attributes_for(:expense)
+      attributes[:task] = @task
+      
       assert_difference('Expense.count') do
-        post :create, :expense => { }
+        post :create, :expense => attributes
       end
 
       assert_redirected_to expense_path(assigns(:expense))
     end
 
-    should "show expense" do
-      get :show, :id => expenses(:one).to_param
+    should "show an expense" do
+      get :show, :id => @expense.to_param
       assert_response :success
     end
 
     should "get edit" do
-      get :edit, :id => expenses(:one).to_param
+      get :edit, :id => @expense.to_param
       assert_response :success
     end
 
-    should "update expense" do
-      put :update, :id => expenses(:one).to_param, :expense => { }
+    should "update an expense" do
+      put :update, :id => @expense.to_param, :expense => Factory.attributes_for(:expense, :name => "Gobbledeegook")
       assert_redirected_to expense_path(assigns(:expense))
     end
 
-    should "destroy expense" do
+    should "destroy an expense" do
       assert_difference('Expense.count', -1) do
-        delete :destroy, :id => expenses(:one).to_param
+        delete :destroy, :id => @expense.to_param
       end
 
       assert_redirected_to expenses_path
     end
   end
-  
 end
